@@ -15,3 +15,10 @@ const val CARACTER_FIN_PALABRA = " "
 const val NO_HAY_ERROR = ""
 const val NO_SE_PUEDE_SEPARAR = ""
 
+/*mensajes de error separando en silabas*/
+const val ERROR_PALABRA_SIN_VOCALES = "No existen palabras sin vocales"
+const val ERROR_PALABRA_SIMBOLOS_NO_PERMITIDOS = "Palabra con simbolos no permitidos -> "
+const val ERROR_PALABRA_VACIA = "Palabra vacia"
+
+/*mensajes de error buscando silaba tonica*/
+const val ERROR_VARIAS_VOCALES_ACENTUADAS = "No puede haber mas de una vocal acentuada por palabra"

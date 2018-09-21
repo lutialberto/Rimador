@@ -3,22 +3,18 @@ package com.example.betom.rimador.servicios
 import android.util.Log
 import com.example.betom.rimador.modelos.Palabra
 import com.example.betom.rimador.modelos.Silaba
-import com.example.betom.rimador.utilidades.CARACTER_FIN_PALABRA
-import com.example.betom.rimador.utilidades.MAX_GRUPOS
-import com.example.betom.rimador.utilidades.NO_HAY_ERROR
+import com.example.betom.rimador.utilidades.*
 
 object Silabeador {
 
     private lateinit var acumulado: String
     private lateinit var ultimaSilaba: Silaba
     private lateinit var palabra: Palabra
-    private var mensajeError= NO_HAY_ERROR
 
     fun separarEnSilabas (p:Palabra){
         acumulado=""
         ultimaSilaba=Silaba()
         this.palabra= p
-        mensajeError= NO_HAY_ERROR
         var estadoActual=0
         Log.d("SEP","cadena a separarEnSilabas -> |${palabra.cadena}|")
 
@@ -29,11 +25,7 @@ object Silabeador {
         Log.d("SEP","cadena a separarEnSilabas -> |$cadena|")
 
         for (letra in cadena){
-            if(estadoActual==-1) {
-                if (palabra.mensajeError == NO_HAY_ERROR)
-                    palabra.mensajeError = this.mensajeError
-            }
-            else {
+            if(estadoActual!=-1) {
                 val nroGrupoLetras= encontrarNroGrupoLetras(letra)
                 Log.d("SEP","estado actual, grupo -> |$estadoActual|$nroGrupoLetras|$letra|")
                 //dado la letra y estado actual llamo a la funcion correspondiente de la matriz
@@ -270,22 +262,21 @@ object Silabeador {
     * se trata analizar una palabra sin vocales
     * */
     private val inicErrorFin = { _: Char ->
-        mensajeError="No existen palabras sin vocales"
+        palabra.mensajeError = ERROR_PALABRA_SIN_VOCALES
     }
-
 
     /*
     * se trata de analizar una palabra que tiene simbolos que no son letras en minuscula
     * */
     private val errorOtro = { otro: Char ->
-        mensajeError="Palabra con simbolos no permitidos -> $otro"
+        palabra.mensajeError = "$ERROR_PALABRA_SIMBOLOS_NO_PERMITIDOS$otro"
     }
 
     /*
     * se trata de analizar una "palabra" sin simbolos
     * */
     private val inicErrorEntrada = { _: Char ->
-        mensajeError="Palabra vacia"
+        palabra.mensajeError = ERROR_PALABRA_VACIA
     }
 
     /*

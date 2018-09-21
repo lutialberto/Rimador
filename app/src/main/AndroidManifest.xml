@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controladores.MainActivity"></activity>
+        <activity android:name=".controladores.MainActivity" />
+        <activity android:name=".controladores.EstructuraPalabraActivity"></activity>
     </application>
 
 </manifest>
