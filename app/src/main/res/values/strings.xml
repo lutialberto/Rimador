@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Rimador</string>
+    <string name="silabear">Silabear</string>
+    <string name="ej_salida">Ej: salida</string>
+    <string name="ej_sa_li_da">Ej: sa-li-da</string>
+    <string name="ingresar_palabra">Ingresar palabra</string>
+    <string name="palabra_separada_en_s_labas">Palabra separada en sílabas</string>
 </resources>

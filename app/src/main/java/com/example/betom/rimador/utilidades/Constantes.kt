@@ -7,6 +7,6 @@ const val SILABA_VOC_ULTIMO = 2
 const val SILABA_PREF_ULTIMO = 1
 const val SILABA_NADA_ULTIMO = 0
 
-/*informacion sobre la maquina de estados para separar en silabas*/
+/*informacion sobre la maquina de estados para separarEnSilabas en silabas*/
 const val MAX_GRUPOS = 11
-
+const val NO_HAY_ERROR = ""

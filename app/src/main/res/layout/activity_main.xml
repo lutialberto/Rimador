@@ -8,41 +8,66 @@
 
     <Button
         android:id="@+id/silabeadaBoton"
-        android:layout_width="150sp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:background="@color/colorPrimaryDark"
         android:onClick="silabearClikeado"
-        android:text="Silabear"
+        android:text="@string/silabear"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/palabraSeparadaText"
+        app:layout_constraintStart_toStartOf="@+id/palabraSeparadaText" />
 
     <EditText
-        android:id="@+id/entradaText"
-        android:layout_width="wrap_content"
+        android:id="@+id/ingresarPalabraText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="pone palabra"
+        android:hint="@string/ej_salida"
         android:inputType="textPersonName"
+        android:singleLine="true"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingresarPalabraLabel" />
+
+    <TextView
+        android:id="@+id/palabraSeparadaText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/ej_sa_li_da"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/ingresarPalabraText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ingresarPalabraText"
+        app:layout_constraintTop_toBottomOf="@+id/PalabraSeparadaLabel" />
+
+    <TextView
+        android:id="@+id/ingresarPalabraLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/ingresar_palabra"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/ingresarPalabraText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/silabeadaText"
-        android:layout_width="218dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="32dp"
-        android:background="@android:color/holo_blue_bright"
-        android:text="separada"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entradaText" />
+        android:id="@+id/PalabraSeparadaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/palabra_separada_en_s_labas"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/palabraSeparadaText"
+        app:layout_constraintTop_toBottomOf="@+id/ingresarPalabraText" />
 
 </android.support.constraint.ConstraintLayout>
