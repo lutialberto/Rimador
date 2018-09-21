@@ -1,9 +1,9 @@
-package com.example.betom.rimador.Modelos
+package com.example.betom.rimador.modelos
 
-import com.example.betom.rimador.Utilidades.SILABA_NADA_ULTIMO
-import com.example.betom.rimador.Utilidades.SILABA_PREF_ULTIMO
-import com.example.betom.rimador.Utilidades.SILABA_SUF_ULTIMO
-import com.example.betom.rimador.Utilidades.SILABA_VOC_ULTIMO
+import com.example.betom.rimador.utilidades.SILABA_NADA_ULTIMO
+import com.example.betom.rimador.utilidades.SILABA_PREF_ULTIMO
+import com.example.betom.rimador.utilidades.SILABA_SUF_ULTIMO
+import com.example.betom.rimador.utilidades.SILABA_VOC_ULTIMO
 
 class Silaba {
     var prefijoSilabico=""

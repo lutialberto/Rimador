@@ -1,8 +1,9 @@
-package com.example.betom.rimador.Servicios
+package com.example.betom.rimador.servicios
 
 import android.util.Log
-import com.example.betom.rimador.Modelos.Palabra
-import com.example.betom.rimador.Modelos.Silaba
+import com.example.betom.rimador.modelos.Palabra
+import com.example.betom.rimador.modelos.Silaba
+import com.example.betom.rimador.utilidades.MAX_GRUPOS
 
 object Silabeador {
 
@@ -12,42 +13,44 @@ object Silabeador {
     private lateinit var mensajeError: String
 
     fun separar (cadena:String): String{
-        Log.d("ASD","cadena -> |$cadena|")
-        ultimaSilaba=Silaba()
+        Log.d("SEP","cadena a separar -> |$cadena|")
         acumulado=""
+        ultimaSilaba=Silaba()
         palabra= Palabra()
+        mensajeError=""
         var estadoActual=0
+
         val matrizEstados= inicializarMatrizCambioEstados()
         val matrixAcciones= inicializarMatrizAcciones()
 
         for (letra in cadena){
             val nroGrupoLetras= encontrarNroGrupoLetras(letra)
             //dado la letra y estado actual llamo a la funcion correspondiente de la matriz
-            matrixAcciones[11*estadoActual+nroGrupoLetras](letra)
+            matrixAcciones[MAX_GRUPOS*estadoActual+nroGrupoLetras](letra)
             //dado la letra y estado actual consigo el proximo estado
-            estadoActual=matrizEstados[11*estadoActual+nroGrupoLetras]
+            estadoActual=matrizEstados[MAX_GRUPOS*estadoActual+nroGrupoLetras]
 
             if(estadoActual==-1) {
                 return mensajeError
-                estadoActual=0
             }
         }
+        Log.d("SEP","cadena separada -> |${palabra.toString()}|")
         return palabra.toString()
     }
 
     private fun encontrarNroGrupoLetras(letra: Char): Int {
         return when(letra){
-            'i','u','ü' -> 0
-            'a','e','o','á','é','í','ó','ú' -> 1
-            'b','f','g','p','t' -> 2
-            'd' -> 3
-            'c' -> 4
-            'l' -> 5
-            'r' -> 6
-            'h' -> 7
-            'j','k','m','n','q','s','v','w','x','y','z' -> 8
-            ' ' -> 9
-            else -> 10
+            'i','u','ü' -> 0  //vd: vocales debiles
+            'a','e','o','á','é','í','ó','ú' -> 1  //vf: vocales fuertes
+            'b','f','g','p','t' -> 2  //cig: consonantes que forman grupo con 'r' y 'l'
+            'd' -> 3  //consonantes que forman grupo con 'r'
+            'c' -> 4  //consonantes que forman grupo con 'l', 'r' y 'h'
+            'l' -> 5  //consonantes que forman grupo con 'l' y cig
+            'r' -> 6  //consonantes que forman grupo con 'r' y cig
+            'h' -> 7  //consonantes que forman grupo con 'c'
+            'j','k','m','n','q','s','v','w','x','y','z' -> 8 //cn: no forman grupo
+            ' ' -> 9  //caracter de fin de palabra
+            else -> 10  //error
         }
     }
 
@@ -255,14 +258,24 @@ object Silabeador {
         acumulado=vocal.toString()
     }
 
+    /*
+    * se trata analizar una palabra sin vocales
+    * */
     private val inicErrorFin = { _: Char ->
         mensajeError="ERROR: No existen palabras sin vocales"
     }
 
+
+    /*
+    * se trata de analizar una palabra que tiene simbolos que no son letras en minuscula
+    * */
     private val errorOtro = { otro: Char ->
         mensajeError="ERROR: palabra con simbolos no permitidos -> $otro"
     }
 
+    /*
+    * se trata de analizar una "palabra" sin simbolos
+    * */
     private val inicErrorEntrada = { _: Char ->
         mensajeError="ERROR: palabra vacia"
     }
@@ -376,5 +389,4 @@ object Silabeador {
         ultimaSilaba.sufijoSilabico=acumulado
         palabra.agregarSilaba(ultimaSilaba)
     }
-
 }

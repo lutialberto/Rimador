@@ -1,4 +1,4 @@
-package com.example.betom.rimador.Utilidades
+package com.example.betom.rimador.utilidades
 
 
 /*informacion sobre la estructura actual de la ultima silaba determinada de una palabra*/
@@ -7,4 +7,6 @@ const val SILABA_VOC_ULTIMO = 2
 const val SILABA_PREF_ULTIMO = 1
 const val SILABA_NADA_ULTIMO = 0
 
-const val NRO_GRUPOS_MAQUINA_ESTADOS = 11
+/*informacion sobre la maquina de estados para separar en silabas*/
+const val MAX_GRUPOS = 11
+

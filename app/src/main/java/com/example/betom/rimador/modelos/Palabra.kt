@@ -1,4 +1,4 @@
-package com.example.betom.rimador.Modelos
+package com.example.betom.rimador.modelos
 
 class Palabra {
     var silabas=ArrayList<Silaba>()
