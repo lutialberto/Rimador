@@ -9,4 +9,9 @@ const val SILABA_NADA_ULTIMO = 0
 
 /*informacion sobre la maquina de estados para separarEnSilabas en silabas*/
 const val MAX_GRUPOS = 11
+const val CARACTER_FIN_PALABRA = " "
+
+/*informacion sobre constantes de la clase palabra*/
 const val NO_HAY_ERROR = ""
+const val NO_SE_PUEDE_SEPARAR = ""
+

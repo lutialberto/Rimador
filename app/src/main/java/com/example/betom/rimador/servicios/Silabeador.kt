@@ -3,6 +3,7 @@ package com.example.betom.rimador.servicios
 import android.util.Log
 import com.example.betom.rimador.modelos.Palabra
 import com.example.betom.rimador.modelos.Silaba
+import com.example.betom.rimador.utilidades.CARACTER_FIN_PALABRA
 import com.example.betom.rimador.utilidades.MAX_GRUPOS
 import com.example.betom.rimador.utilidades.NO_HAY_ERROR
 
@@ -13,31 +14,36 @@ object Silabeador {
     private lateinit var palabra: Palabra
     private var mensajeError= NO_HAY_ERROR
 
-    fun separarEnSilabas (cadena:String): Palabra{
-        Log.d("SEP","cadena a separarEnSilabas -> |$cadena|")
+    fun separarEnSilabas (p:Palabra){
         acumulado=""
         ultimaSilaba=Silaba()
-        palabra= Palabra()
+        this.palabra= p
         mensajeError= NO_HAY_ERROR
         var estadoActual=0
+        Log.d("SEP","cadena a separarEnSilabas -> |${palabra.cadena}|")
 
         val matrizEstados= inicializarMatrizCambioEstados()
         val matrixAcciones= inicializarMatrizAcciones()
 
-        for (letra in cadena){
-            val nroGrupoLetras= encontrarNroGrupoLetras(letra)
-            //dado la letra y estado actual llamo a la funcion correspondiente de la matriz
-            matrixAcciones[MAX_GRUPOS*estadoActual+nroGrupoLetras](letra)
-            //dado la letra y estado actual consigo el proximo estado
-            estadoActual=matrizEstados[MAX_GRUPOS*estadoActual+nroGrupoLetras]
+        val cadena="${palabra.cadena.toLowerCase().trim()}$CARACTER_FIN_PALABRA"
+        Log.d("SEP","cadena a separarEnSilabas -> |$cadena|")
 
+        for (letra in cadena){
             if(estadoActual==-1) {
-                palabra.mensajeError= this.mensajeError
-                return palabra
+                if (palabra.mensajeError == NO_HAY_ERROR)
+                    palabra.mensajeError = this.mensajeError
+            }
+            else {
+                val nroGrupoLetras= encontrarNroGrupoLetras(letra)
+                Log.d("SEP","estado actual, grupo -> |$estadoActual|$nroGrupoLetras|$letra|")
+                //dado la letra y estado actual llamo a la funcion correspondiente de la matriz
+                matrixAcciones[MAX_GRUPOS*estadoActual+nroGrupoLetras](letra)
+                //dado la letra y estado actual consigo el proximo estado
+                estadoActual=matrizEstados[MAX_GRUPOS*estadoActual+nroGrupoLetras]
+                Log.d("SEP","estado nuevo -> |$estadoActual|")
             }
         }
-        Log.d("SEP","cadena separada -> |$palabra|")
-        return palabra
+        Log.d("SEP","cadena separada -> |${palabra.separadaEnSilabas()}|")
     }
 
     private fun encontrarNroGrupoLetras(letra: Char): Int {
