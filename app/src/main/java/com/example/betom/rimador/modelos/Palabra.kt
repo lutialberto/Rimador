@@ -30,11 +30,17 @@ class Palabra (val cadena:String) {
         return retorno
     }
 
+    /*
+    * preguntar siempre con el metodo tiene errores antes de llamar este metodo
+    * para evitar resultados inesperados
+    *
+    * separa las silabas con '-': salida -> sa-li-da
+    * */
     fun separadaEnSilabas(): String{
         if(!tieneErrores()) {
             var retorno = ""
             for (silaba in silabas) {
-                retorno += silaba.toString() + "-"
+                retorno += silaba.toString() + SIMBOLO_SEPARA_SILABAS
             }
             return retorno.substring(0, retorno.length - 1)
         }
@@ -47,8 +53,37 @@ class Palabra (val cadena:String) {
 
     //---------------------------------------------------------------------------
 
-    fun getEstructuraVocal(){
+    /*
+    * preguntar siempre con el metodo tiene errores antes de llamar este metodo
+    * para evitar resultados inesperados
+    *
+    * busca el esqueleto de la palabra marcando la vocal tonica:
+    * salida -> a-'i'-a ANDA
+    * siquiera -> i-i'e'-a NO ANDA
+    * ahora -> a-o-a ANDA
+    * güeva -> u-'e'-a NO ANDA
+    * estación -> e-a-i'ó' NO ANDA
+    * */
+    fun getEstructuraVocal():String {
+        var estructura=""
 
+        for ((i,silaba) in silabas.withIndex()){
+
+            if(i==silabaTonica){
+
+                for (letra in silaba.grupoVocal){
+                    estructura+=when(letra){
+                        'á','é','í','ó','ú' -> "'$letra'"
+                        else -> letra.toString()
+                    }
+                }
+
+            } else {
+                estructura+=silaba.grupoVocal
+            }
+            estructura+=SIMBOLO_SEPARA_SILABAS
+        }
+        return estructura.removeSuffix(SIMBOLO_SEPARA_SILABAS)
     }
 
     /*
@@ -72,6 +107,9 @@ class Palabra (val cadena:String) {
     }
 
     /*
+    * preguntar siempre con el metodo tiene errores antes de llamar este metodo
+    * para evitar resultados inesperados
+    *
     * busco su silaba con tilde, si no tiene entonces determino si es aguda o grave
     * */
     fun getSilabaTonica():Int {
@@ -108,7 +146,13 @@ class Palabra (val cadena:String) {
         }
     }
 
-    fun getParteRimante(){
+    /*
+    * preguntar siempre con el metodo tiene errores antes de llamar este metodo
+    * para evitar resultados inesperados
+    *
+    *
+    * */
+    fun getParteRimante(rimaConsonante:Boolean){
     }
 
     fun getCantidadSilabas(): Int {
