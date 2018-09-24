@@ -58,30 +58,34 @@ class Palabra (val cadena:String) {
     * para evitar resultados inesperados
     *
     * busca el esqueleto de la palabra marcando la vocal tonica:
-    * salida -> a-'i'-a ANDA
-    * siquiera -> i-i'e'-a NO ANDA
-    * ahora -> a-o-a ANDA
-    * güeva -> u-'e'-a NO ANDA
-    * estación -> e-a-i'ó' NO ANDA
+    * caso1: salida -> a-'i'-a
+    * caso2: siquiera -> i-'ie'-a
+    * caso3: ahora -> a-'o'-a
+    * caso4: güeva -> 'ue'-a
+    * caso5: estación -> e-a-'ió'
     * */
     fun getEstructuraVocal():String {
         var estructura=""
 
         for ((i,silaba) in silabas.withIndex()){
 
-            if(i==silabaTonica){
+            var grupo = silaba.grupoVocal
 
-                for (letra in silaba.grupoVocal){
-                    estructura+=when(letra){
-                        'á','é','í','ó','ú' -> "'$letra'"
-                        else -> letra.toString()
-                    }
+            /*arregla caso 2*/
+            if(grupo.length>=2 && (silaba.prefijoSilabico.last()=='q' || silaba.prefijoSilabico.last()=='g'))
+                grupo=when(grupo.subSequence(0,2)){
+                    "ué","uí","ue","ui" -> grupo.subSequence(1,grupo.length).toString()
+                    else -> grupo
                 }
 
-            } else {
-                estructura+=silaba.grupoVocal
-            }
-            estructura+=SIMBOLO_SEPARA_SILABAS
+            /*arregla caso 4*/
+            grupo.replace('ü','u') //me saco la ü de encima
+
+            /*marca la silaba tonica*/
+            if(i==silabaTonica)
+                grupo="'$grupo'"
+
+            estructura+=grupo+SIMBOLO_SEPARA_SILABAS
         }
         return estructura.removeSuffix(SIMBOLO_SEPARA_SILABAS)
     }
