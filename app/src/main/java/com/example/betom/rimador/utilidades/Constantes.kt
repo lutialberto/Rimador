@@ -20,5 +20,7 @@ const val ERROR_PALABRA_SIN_VOCALES = "No existen palabras sin vocales"
 const val ERROR_PALABRA_SIMBOLOS_NO_PERMITIDOS = "Palabra con simbolos no permitidos -> "
 const val ERROR_PALABRA_VACIA = "Palabra vacia"
 
-/*mensajes de error buscando silaba tonica*/
-const val ERROR_VARIAS_VOCALES_ACENTUADAS = "No puede haber mas de una vocal acentuada por palabra"
+/*mensajes silabas tonica o con tilde*/
+const val ERROR_VARIAS_VOCALES_ACENTUADAS = "No puede haber mas de una vocal con tilde por palabra"
+const val PALABRA_SIN_TILDE = -1
+const val VALOR_POR_DEFECTO_SILABA_TONICA = -2

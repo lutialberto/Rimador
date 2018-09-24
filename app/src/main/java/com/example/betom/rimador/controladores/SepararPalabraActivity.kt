@@ -25,6 +25,7 @@ class SepararPalabraActivity : AppCompatActivity() {
             if(!palabraIngresada.tieneErrores()) {
                 palabraSeparadaText.text = palabraIngresada.separadaEnSilabas()
                 ingresarPalabraText.text.clear()
+                Log.d("TON"," silaba tonica: ${palabraIngresada.getSilabaTonica()}")
             }
             else{
                 Toast.makeText(this,palabraIngresada.mensajeError, Toast.LENGTH_SHORT).show()

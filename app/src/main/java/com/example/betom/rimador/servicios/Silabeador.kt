@@ -106,7 +106,7 @@ object Silabeador {
                 construyendo,      //1
                 vocDeterminado,    //2
                 vocDeterminado,    //3
-                vocDeterminadoH,   //4
+                vocDeterminado,   //4
                 vocDeterminado,    //5
                 vocDeterminado,    //6
                 construyendo,      //7
@@ -118,7 +118,7 @@ object Silabeador {
                 vocHiato,          //1
                 vocDeterminado,    //2
                 vocDeterminado,    //3
-                vocDeterminadoH,   //4
+                vocDeterminado,   //4
                 vocDeterminado,    //5
                 vocDeterminado,    //6
                 construyendo,      //7
