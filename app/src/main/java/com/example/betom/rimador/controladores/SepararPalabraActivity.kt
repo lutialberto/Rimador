@@ -26,6 +26,8 @@ class SepararPalabraActivity : AppCompatActivity() {
                 palabraSeparadaText.text = palabraIngresada.separadaEnSilabas()
                 ingresarPalabraText.text.clear()
                 Log.d("ESTVOC","estructura de la palabra $palabraIngresada: ${palabraIngresada.getEstructuraVocal()}")
+                Log.d("RIMA","rima consonante de $palabraIngresada -> ${palabraIngresada.getParteRimante(true)}")
+                Log.d("RIMA","rima asonante de $palabraIngresada -> ${palabraIngresada.getParteRimante(false)}")
             }
             else{
                 Toast.makeText(this,palabraIngresada.mensajeError, Toast.LENGTH_SHORT).show()

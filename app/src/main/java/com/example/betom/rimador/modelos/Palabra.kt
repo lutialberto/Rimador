@@ -156,7 +156,14 @@ class Palabra (val cadena:String) {
     *
     *
     * */
-    fun getParteRimante(rimaConsonante:Boolean){
+    fun getParteRimante(rimaConsonante:Boolean): String {
+        val regex=Regex("\\[|\\]| |,")
+        return if(rimaConsonante){
+            silabas[silabaTonica].grupoVocal+silabas[silabaTonica].sufijoSilabico+
+            silabas.subList(silabaTonica+1,silabas.size).toString().replace(regex,"")
+        }else {
+            getEstructuraVocal().split(Regex("'"),0).subList(1,3).toString().replace(regex,"")
+        }
     }
 
     fun getCantidadSilabas(): Int {
