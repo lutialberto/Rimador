@@ -1,45 +1,45 @@
-package com.example.betom.rimador.servicios
+package com.example.betom.rimador.services
 
 import android.util.Log
-import com.example.betom.rimador.modelos.Palabra
-import com.example.betom.rimador.modelos.Silaba
-import com.example.betom.rimador.utilidades.*
+import com.example.betom.rimador.models.Word
+import com.example.betom.rimador.models.Syllable
+import com.example.betom.rimador.utilities.*
 
-object Silabeador {
+object WordDivider {
 
-    private lateinit var acumulado: String
-    private lateinit var ultimaSilaba: Silaba
-    private lateinit var palabra: Palabra
+    private lateinit var acumulated: String
+    private lateinit var lastSyllable: Syllable
+    private lateinit var word: Word
 
-    fun separarEnSilabas (p:Palabra){
-        acumulado=""
-        ultimaSilaba=Silaba()
-        this.palabra= p
-        var estadoActual=0
-        Log.d("SEP","cadena a separarEnSilabas -> |${palabra.cadena}|")
+    fun separarEnSilabas (p:Word){
+        acumulated=""
+        lastSyllable=Syllable()
+        this.word= p
+        var state=0
+        Log.d("SEP","str a separarEnSilabas -> |${word.str}|")
 
-        val matrizEstados= inicializarMatrizCambioEstados()
-        val matrixAcciones= inicializarMatrizAcciones()
+        val stateMatrix= changeStateMatrixInit()
+        val actionMatrix= actionMatrixInit()
 
-        val cadena="${palabra.cadena.toLowerCase().trim()}$CARACTER_FIN_PALABRA"
-        Log.d("SEP","cadena a separarEnSilabas -> |$cadena|")
+        val cadena="${word.str.toLowerCase().trim()}$END_OF_WORD_DELIMITER"
+        Log.d("SEP","str a separarEnSilabas -> |$cadena|")
 
-        for (letra in cadena){
-            if(estadoActual!=-1) {
-                val nroGrupoLetras= encontrarNroGrupoLetras(letra)
-                Log.d("SEP","estado actual, grupo -> |$estadoActual|$nroGrupoLetras|$letra|")
+        for (letter in cadena){
+            if(state!=-1) {
+                val letterSet= findLetterSet(letter)
+                Log.d("SEP","estado actual, grupo -> |$state|$letterSet|$letter|")
                 //dado la letra y estado actual llamo a la funcion correspondiente de la matriz
-                matrixAcciones[MAX_GRUPOS*estadoActual+nroGrupoLetras](letra)
+                actionMatrix[LETTER_SETS_COUNT*state+letterSet](letter)
                 //dado la letra y estado actual consigo el proximo estado
-                estadoActual=matrizEstados[MAX_GRUPOS*estadoActual+nroGrupoLetras]
-                Log.d("SEP","estado nuevo -> |$estadoActual|")
+                state=stateMatrix[LETTER_SETS_COUNT*state+letterSet]
+                Log.d("SEP","estado nuevo -> |$state|")
             }
         }
-        Log.d("SEP","cadena separada -> |${palabra.separadaEnSilabas()}|")
+        Log.d("SEP","str separada -> |${word.intoSyllables()}|")
     }
 
-    private fun encontrarNroGrupoLetras(letra: Char): Int {
-        return when(letra){
+    private fun findLetterSet(letter: Char): Int {
+        return when(letter){
             'i','u','ü' -> 0  //vd: vocales debiles
             'a','e','o','á','é','í','ó','ú' -> 1  //vf: vocales fuertes
             'b','f','g','p','t' -> 2  //cig: consonantes que forman grupo con 'r' y 'l'
@@ -49,12 +49,12 @@ object Silabeador {
             'r' -> 6  //consonantes que forman grupo con 'r' y cig
             'h' -> 7  //consonantes que forman grupo con 'c'
             'j','k','m','n','q','s','v','w','x','y','z' -> 8 //cn: no forman grupo
-            ' ' -> 9  //caracter de fin de palabra
+            ' ' -> 9  //caracter de fin de word
             else -> 10  //error
         }
     }
 
-    private fun inicializarMatrizCambioEstados(): Array<Int>{
+    private fun changeStateMatrixInit(): Array<Int>{
         return arrayOf(
             //  0   1   2   3   4   5   6   7   8  9 10
             // vd  vf  cig  d   c   l   r   h  cn fin err
@@ -75,7 +75,7 @@ object Silabeador {
         )
     }
 
-    private fun inicializarMatrizAcciones(): Array<(Char) -> Unit> {
+    private fun actionMatrixInit(): Array<(Char) -> Unit> {
         return arrayOf(
                 //estado 0
                 construyendo,      //0
@@ -249,55 +249,55 @@ object Silabeador {
     }
 
     /*
-    * se determino que lo que hay en acumulado es un prefijo silabico
-    * guardo el acumulado como prefijo de la silaba
+    * se determino que lo que hay en acumulated es un prefijo silabico
+    * guardo el acumulated como prefijo de la silaba
     * empiezo a cumular de nuevo
     * */
     private val inicDeterminado = {vocal: Char ->
-        ultimaSilaba.prefijoSilabico= acumulado
-        acumulado=vocal.toString()
+        lastSyllable.syllabicPrefix= acumulated
+        acumulated=vocal.toString()
     }
 
     /*
-    * se trata analizar una palabra sin vocales
+    * se trata analizar una word sin vocales
     * */
     private val inicErrorFin = { _: Char ->
-        palabra.mensajeError = ERROR_PALABRA_SIN_VOCALES
+        word.errorMessage = ERROR_WORD_WITHOUT_VOCALS
     }
 
     /*
-    * se trata de analizar una palabra que tiene simbolos que no son letras en minuscula
+    * se trata de analizar una word que tiene simbolos que no son letras en minuscula
     * */
-    private val errorOtro = { otro: Char ->
-        palabra.mensajeError = "$ERROR_PALABRA_SIMBOLOS_NO_PERMITIDOS$otro"
+    private val errorOtro = { unknownSymbol: Char ->
+        word.errorMessage = "$ERROR_UNKNOWN_SYMBOL$unknownSymbol"
     }
 
     /*
-    * se trata de analizar una "palabra" sin simbolos
+    * se trata de analizar una "word" sin simbolos
     * */
     private val inicErrorEntrada = { _: Char ->
-        palabra.mensajeError = ERROR_PALABRA_VACIA
+        word.errorMessage = ERROR_EMPTY_WORD
     }
 
     /*
     * aun no se reconocio ningun patron
-    * guardo una letra nueva en el acumulado
+    * guardo una letra nueva en el acumulated
     * */
-    private val construyendo = { letra: Char ->
-        acumulado+=letra
+    private val construyendo = { letter: Char ->
+        acumulated+=letter
     }
 
     /*
     * se reconocio un hiato sin h de por medio
-    * formo un grupo silabico con lo acumulado
+    * formo un grupo silabico con lo acumulated
     * guardo la ultima silaba y genero una nueva
     * empiezo a acumular de nuevo
     * */
     private val vocHiato = { vocal: Char ->
-        ultimaSilaba.grupoVocal= acumulado
-        palabra.agregarSilaba(ultimaSilaba)
-        ultimaSilaba= Silaba()
-        acumulado=vocal.toString()
+        lastSyllable.vowels= acumulated
+        word.addSyllable(lastSyllable)
+        lastSyllable= Syllable()
+        acumulated=vocal.toString()
     }
 
     /*
@@ -308,84 +308,84 @@ object Silabeador {
     * empiezo a acumular de nuevo
     * */
     private val vocHiatoH = { vocal: Char ->
-        ultimaSilaba.grupoVocal=acumulado.substring(0,acumulado.length-1)
-        palabra.agregarSilaba(ultimaSilaba)
-        ultimaSilaba= Silaba()
-        ultimaSilaba.prefijoSilabico="h"
-        acumulado=vocal.toString()
+        lastSyllable.vowels=acumulated.substring(0,acumulated.length-1)
+        word.addSyllable(lastSyllable)
+        lastSyllable= Syllable()
+        lastSyllable.syllabicPrefix="h"
+        acumulated=vocal.toString()
     }
 
     /*
-    * se llego al final de la palabra
-    * formo grupo silabico con lo acumulado
+    * se llego al final de la word
+    * formo grupo silabico con lo acumulated
     * guardo la silaba
     * */
     private val vocFin = { _ : Char ->
-        ultimaSilaba.grupoVocal=acumulado
-        palabra.agregarSilaba(ultimaSilaba)
+        lastSyllable.vowels=acumulated
+        word.addSyllable(lastSyllable)
     }
 
     /*
-    * lo acumulado forma grupo vocal
+    * lo acumulated forma grupo vocal
     * formo grupo silabico, guardo silaba
     * empiezo a acumular de nuevo
     * */
-    private val vocDeterminado = { consonante: Char ->
-        ultimaSilaba.grupoVocal= acumulado
-        acumulado=consonante.toString()
+    private val vocDeterminado = { consonant: Char ->
+        lastSyllable.vowels= acumulated
+        acumulated=consonant.toString()
     }
 
     /*
     * se reconocio grupo vocal seguido de h
-    * formo grupo silabico con todo lo acumulado previo a la h
+    * formo grupo silabico con todo lo acumulated previo a la h
     * empiezo a acumular e nuevo, pero agregando primero la h
     * */
-    private val vocDeterminadoH = {consonante : Char ->
-        ultimaSilaba.grupoVocal= acumulado.substring(0, acumulado.length-1)
-        acumulado= "h$consonante"
+    private val vocDeterminadoH = {consonant : Char ->
+        lastSyllable.vowels= acumulated.substring(0, acumulated.length-1)
+        acumulated= "h$consonant"
     }
 
     /*
-    * se reconocio que lo acumulado pertenece a 2 silabas distintas
-    * si lo acumulado es de tamaño 1, se guarda la silaba actual, y se genera una nueva
-    * con el acumulado como prefijo
-    * si es mayor a 1, se guarda en la silaba actual como sufijo todo el acumulado
+    * se reconocio que lo acumulated pertenece a 2 syllables distintas
+    * si lo acumulated es de tamaño 1, se guarda la silaba actual, y se genera una nueva
+    * con el acumulated como prefijo
+    * si es mayor a 1, se guarda en la silaba actual como sufijo todo el acumulated
     * menos la ultima letra que sera prefijo de la nueva silaba
     * */
     private val sepDeterminado = { vocal : Char ->
-        val prefijo: String
-        if(acumulado.length>1){
-            prefijo=acumulado.substring(acumulado.length-1)
-            ultimaSilaba.sufijoSilabico=acumulado.substring(0,acumulado.length-1)
+        val prefix: String
+        if(acumulated.length>1){
+            prefix=acumulated.substring(acumulated.length-1)
+            lastSyllable.syllabicSufix=acumulated.substring(0,acumulated.length-1)
         } else {
-            prefijo=acumulado
+            prefix=acumulated
         }
-        palabra.agregarSilaba(ultimaSilaba)
-        ultimaSilaba=Silaba()
-        ultimaSilaba.prefijoSilabico=prefijo
-        acumulado=vocal.toString()
+        word.addSyllable(lastSyllable)
+        lastSyllable=Syllable()
+        lastSyllable.syllabicPrefix=prefix
+        acumulated=vocal.toString()
     }
 
     /*
-    * se reconocio que lo acumulado pertenece a 2 silabas distintas y hay grupo consonantico
-    * las 2 ultimas letras del acumulado son prefijo de la nueva silaba y el resto
+    * se reconocio que lo acumulated pertenece a 2 syllables distintas y hay grupo consonantico
+    * las 2 ultimas letras del acumulated son prefijo de la nueva silaba y el resto
     * son sufijo de la actual
     * */
     private val sepDeterminadoGC = { vocal: Char ->
-        val prefijo=acumulado.substring(acumulado.length-2)
-        ultimaSilaba.sufijoSilabico=acumulado.substring(0,acumulado.length-2)
-        palabra.agregarSilaba(ultimaSilaba)
-        ultimaSilaba=Silaba()
-        ultimaSilaba.prefijoSilabico=prefijo
-        acumulado=vocal.toString()
+        val prefix=acumulated.substring(acumulated.length-2)
+        lastSyllable.syllabicSufix=acumulated.substring(0,acumulated.length-2)
+        word.addSyllable(lastSyllable)
+        lastSyllable=Syllable()
+        lastSyllable.syllabicPrefix=prefix
+        acumulated=vocal.toString()
     }
 
     /*
-    * se llego al final de la palabra
-    * todo lo acumulado se guarda como sufijo de la silaba actual
+    * se llego al final de la word
+    * todo lo acumulated se guarda como sufijo de la silaba actual
     * */
     private val sepFin = { _ : Char ->
-        ultimaSilaba.sufijoSilabico=acumulado
-        palabra.agregarSilaba(ultimaSilaba)
+        lastSyllable.syllabicSufix=acumulated
+        word.addSyllable(lastSyllable)
     }
 }

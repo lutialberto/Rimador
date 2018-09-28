@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controllers.DivideWordActivity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <Button
+        android:id="@+id/separateSyllablesButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="separateSyllablesClicked"
+        android:text="@string/separar_en_s_labas"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/enterWordText"
+        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintTop_toBottomOf="@+id/syllablesListView" />
+
+    <EditText
+        android:id="@+id/enterWordText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/ingresar_palabra"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/palabraSeparadaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/palabra_separada_en_s_labas"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintTop_toBottomOf="@+id/enterWordText" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/syllablesListView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/enterWordText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintTop_toBottomOf="@+id/palabraSeparadaLabel" />
+
+</android.support.constraint.ConstraintLayout>
