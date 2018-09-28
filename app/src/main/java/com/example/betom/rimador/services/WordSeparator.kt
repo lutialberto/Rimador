@@ -5,7 +5,7 @@ import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.models.Syllable
 import com.example.betom.rimador.utilities.*
 
-object WordDivider {
+class WordSeparator {
 
     private lateinit var acumulated: String
     private lateinit var lastSyllable: Syllable

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_separate_word.*
 
 class DivideWordActivity : AppCompatActivity() {
 
-    lateinit var adapter : SyllableRecyclerAdapter
+    private lateinit var adapter : SyllableRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +22,10 @@ class DivideWordActivity : AppCompatActivity() {
         setupSyllableAdapter()
     }
 
-    fun setupSyllableAdapter(){
+    private fun setupSyllableAdapter(){
         val rimador=Word("rimador")
 
-        adapter= SyllableRecyclerAdapter(this,rimador.syllables)
+        adapter= SyllableRecyclerAdapter(this,rimador.intoSyllables())
         syllablesListView.adapter=adapter
 
         val layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
@@ -40,7 +40,7 @@ class DivideWordActivity : AppCompatActivity() {
 
             if(!enteredWord.hasErrors()) {
 
-                adapter= SyllableRecyclerAdapter(this,enteredWord.syllables)
+                adapter= SyllableRecyclerAdapter(this,enteredWord.intoSyllables())
                 syllablesListView.adapter=adapter
 
                 enterWordText.text.clear()

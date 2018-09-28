@@ -1,6 +1,6 @@
 package com.example.betom.rimador.models
 
-import com.example.betom.rimador.services.WordDivider
+import com.example.betom.rimador.services.WordSeparator
 import com.example.betom.rimador.utilities.*
 
 class Word (val str:String) {
@@ -12,7 +12,8 @@ class Word (val str:String) {
     init {
         syllables=ArrayList<Syllable>()
         errorMessage= NO_ERRORS
-        WordDivider.separarEnSilabas(this)
+        val wordSeparator=WordSeparator()
+        wordSeparator.separarEnSilabas(this)
         tonicSyllablePosition=TONIC_SYLLABLE_DEFAULT_VALUE
         tonicSyllablePosition=getTonicSyllable()
 
@@ -36,15 +37,14 @@ class Word (val str:String) {
     *
     * separa las syllables con '-': salida -> sa-li-da
     * */
-    fun intoSyllables(): String{
+    fun intoSyllables(): List<String>{
+        val separatedWord=ArrayList<String>()
         if(!hasErrors()) {
-            var str = ""
             for (syllable in syllables) {
-                str += syllable.toString() + DIVIDE_SYLLABLES_SYMBOL
+                separatedWord.add(syllable.toString())
             }
-            return str.substring(0, str.length - 1)
         }
-        return CANT_BE_SEPARATED
+        return separatedWord
     }
 
     fun hasErrors():Boolean{
@@ -64,30 +64,27 @@ class Word (val str:String) {
     * caso4: güeva -> 'ue'-a
     * caso5: estación -> e-a-'ió'
     * */
-    fun getAssonatingStructure():String {
-        var structure=""
+    fun getAssonatingStructure():List<String> {
+        val structure = ArrayList<String>()
+        if(!hasErrors()) {
+            for ((i, syllable) in syllables.withIndex()) {
 
-        for ((i,syllable) in syllables.withIndex()){
+                var vowels = syllable.vowels
 
-            var vowels = syllable.vowels
+                /*arregla caso 2*/
+                if (vowels.length >= 2 && (syllable.syllabicPrefix.last() == 'q' || syllable.syllabicPrefix.last() == 'g'))
+                    vowels = when (vowels.subSequence(0, 2)) {
+                        "ué", "uí", "ue", "ui" -> vowels.subSequence(1, vowels.length).toString()
+                        else -> vowels
+                    }
 
-            /*arregla caso 2*/
-            if(vowels.length>=2 && (syllable.syllabicPrefix.last()=='q' || syllable.syllabicPrefix.last()=='g'))
-                vowels=when(vowels.subSequence(0,2)){
-                    "ué","uí","ue","ui" -> vowels.subSequence(1,vowels.length).toString()
-                    else -> vowels
-                }
+                /*arregla caso 4*/
+                vowels.replace('ü', 'u') //me saco la ü de encima
 
-            /*arregla caso 4*/
-            vowels.replace('ü','u') //me saco la ü de encima
-
-            /*marca la silaba tonica*/
-            if(i==tonicSyllablePosition)
-                vowels="'$vowels'"
-
-            structure+=vowels+DIVIDE_SYLLABLES_SYMBOL
+                structure.add(vowels)
+            }
         }
-        return structure.removeSuffix(DIVIDE_SYLLABLES_SYMBOL)
+        return structure
     }
 
     /*
@@ -163,14 +160,25 @@ class Word (val str:String) {
     * mas limpio: '[', ']', ' ', ','
     * ánimo: consonante -> ánimo      asonante -> á-i-o
     * */
-    fun getRhyme(consonantRhyme:Boolean): String {
-        val regex=Regex(pattern = "[ ,\\]\\[]")
-        return if(consonantRhyme){
-            syllables[tonicSyllablePosition].vowels+syllables[tonicSyllablePosition].syllabicSufix+
-            syllables.subList(tonicSyllablePosition+1,syllables.size).toString().replace(regex,"")
-        }else {
-            getAssonatingStructure().split(Regex("'"),0).subList(1,3).toString().replace(regex,"")
+    fun getRhyme(consonantRhyme:Boolean): ArrayList<String> {
+        val rhyme=ArrayList<String>()
+        if(!hasErrors()) {
+            val tonicSyllable = syllables[tonicSyllablePosition]
+            val rhymeSyllables = syllables.subList(tonicSyllablePosition + 1, syllables.size)
+
+            if (consonantRhyme) {
+                rhyme.add(tonicSyllable.vowels + tonicSyllable.syllabicSufix)
+                rhymeSyllables.forEach { syllable ->
+                    rhyme.add(syllable.toString())
+                }
+            } else {
+                rhyme.add((tonicSyllable.vowels))
+                rhymeSyllables.forEach { syllable ->
+                    rhyme.add(syllable.vowels)
+                }
+            }
         }
+        return rhyme
     }
 
     private fun getSyllablesSize(): Int {
