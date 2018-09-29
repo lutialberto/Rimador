@@ -6,13 +6,11 @@ const val END_OF_WORD_DELIMITER = " "
 
 /*informacion sobre constantes de la clase palabra*/
 const val NO_ERRORS = ""
-const val CANT_BE_SEPARATED = ""
 
 /*mensajes separando en syllables*/
 const val ERROR_WORD_WITHOUT_VOCALS = "No existen palabras sin vocales"
 const val ERROR_UNKNOWN_SYMBOL = "Word con simbolos no permitidos -> "
-const val ERROR_EMPTY_WORD = "Word vacia"
-const val DIVIDE_SYLLABLES_SYMBOL = "-"
+const val ERROR_EMPTY_WORD = "Palabra vacia"
 
 /*mensajes syllables tonica o con tilde*/
 const val ERROR_TO_MANY_ACCENT_MARKS = "No puede haber mas de una vocal con tilde por palabra"
