@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
 import com.example.betom.rimador.models.Word
 import kotlinx.android.synthetic.main.activity_separate_word.*
 
-class DivideWordActivity : AppCompatActivity() {
+class SeparateWordActivity : AppCompatActivity() {
 
     private lateinit var adapter : SyllableRecyclerAdapter
 
@@ -25,6 +24,8 @@ class DivideWordActivity : AppCompatActivity() {
 
     private fun setupSyllableAdapter(){
         val rimador=Word("rimador")
+        enteredWordLabel.text=getString(R.string.rimador)
+        actionLabel.text=getString(R.string.separada_en_silabas)
 
         adapter= SyllableRecyclerAdapter(this,rimador.intoSyllables())
         syllablesListView.adapter=adapter
@@ -33,7 +34,7 @@ class DivideWordActivity : AppCompatActivity() {
         syllablesListView.layoutManager=layoutManager
     }
 
-    fun separateSyllablesClicked(view: View){
+    private fun showWordInformation(labelMessage:String, dataGetter: (Word) -> List<String>) {
         if(enterWordText.length()>20)
             Toast.makeText(this,"La palabra no puede superar las 20 letras", Toast.LENGTH_LONG).show()
         else{
@@ -41,19 +42,31 @@ class DivideWordActivity : AppCompatActivity() {
 
             if(!enteredWord.hasErrors()) {
 
-                adapter= SyllableRecyclerAdapter(this,enteredWord.intoSyllables())
+                adapter= SyllableRecyclerAdapter(this,dataGetter.invoke(enteredWord))
                 syllablesListView.adapter=adapter
+
+                enteredWordLabel.text=enterWordText.text
+                actionLabel.text=labelMessage
 
                 enterWordText.text.clear()
 
-                Log.d("ESTVOC","estructura de la palabra $enteredWord: ${enteredWord.getAssonatingStructure()}")
-                Log.d("RIMA","rima consonante de $enteredWord -> ${enteredWord.getRhyme(true)}")
-                Log.d("RIMA","rima asonante de $enteredWord -> ${enteredWord.getRhyme(false)}")
             }
             else{
                 Toast.makeText(this,enteredWord.errorMessage, Toast.LENGTH_SHORT).show()
                 Log.d("ERROR","Error: ${enteredWord.errorMessage}.")
             }
+        }
+    }
+
+    fun separateSyllablesClicked(view: View){
+        showWordInformation(getString(R.string.separada_en_silabas)) { w:Word ->
+            w.intoSyllables()
+        }
+    }
+
+    fun vocalStructureClicked(view: View) {
+        showWordInformation(getString(R.string.estructura_vocal)) { w:Word ->
+            w.getAssonatingStructure()
         }
     }
 }

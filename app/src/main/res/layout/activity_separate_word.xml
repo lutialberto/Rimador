@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.DivideWordActivity"
+    tools:context=".controllers.SeparateWordActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <Button
@@ -21,30 +21,49 @@
         app:layout_constraintStart_toStartOf="@+id/enterWordText"
         app:layout_constraintTop_toBottomOf="@+id/syllablesListView" />
 
+    <Button
+        android:id="@+id/vocalStructureButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="vocalStructureClicked"
+        android:text="@string/ver_estructura_vocal"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/enterWordText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintTop_toBottomOf="@+id/separateSyllablesButton" />
+
     <EditText
         android:id="@+id/enterWordText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/ingresar_palabra"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill" />
 
     <TextView
-        android:id="@+id/palabraSeparadaLabel"
+        android:id="@+id/enteredWordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/palabra_separada_en_s_labas"
+        android:layout_marginStart="8dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/enterWordText"
-        app:layout_constraintTop_toBottomOf="@+id/enterWordText" />
+        app:layout_constraintBottom_toBottomOf="@+id/actionLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/actionLabel"
+        app:layout_constraintTop_toTopOf="@+id/actionLabel"
+        tools:text="Rimador" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/syllablesListView"
@@ -54,6 +73,19 @@
         app:layout_constraintEnd_toEndOf="@+id/enterWordText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/enterWordText"
-        app:layout_constraintTop_toBottomOf="@+id/palabraSeparadaLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/actionLabel" />
+
+    <TextView
+        android:id="@+id/actionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/enteredWordLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintTop_toBottomOf="@+id/enterWordText"
+        tools:text="@string/separada_en_silabas" />
 
 </android.support.constraint.ConstraintLayout>

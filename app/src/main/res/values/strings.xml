@@ -87,4 +87,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="ver_estructura_vocal">ver estructura vocal</string>
+    <string name="separada_en_silabas">Separada en silabas:</string>
+    <string name="estructura_vocal">Estructura vocal:</string>
 </resources>
