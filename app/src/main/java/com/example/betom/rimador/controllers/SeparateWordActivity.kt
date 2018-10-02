@@ -25,14 +25,19 @@ class SeparateWordActivity : AppCompatActivity() {
 
     private fun setupSyllableAdapter(){
         val rimador=Word("rimador")
-        enteredWordLabel.text=getString(R.string.rimador)
-        actionLabel.text=getString(R.string.separada_en_silabas)
 
-        adapter= SyllableRecyclerAdapter(this,rimador.intoSyllables())
-        syllablesListView.adapter=adapter
+        setStrings(rimador.intoSyllables(),getString(R.string.separada_en_silabas),getString(R.string.rimador))
 
         val layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         syllablesListView.layoutManager=layoutManager
+    }
+
+    private fun setStrings(elements: List<String>, action:String, wordLabel:String){
+        adapter= SyllableRecyclerAdapter(this,elements)
+        syllablesListView.adapter=adapter
+
+        enteredWordLabel.text=wordLabel
+        actionLabel.text=action
     }
 
     private fun showWordInformation(labelMessage:String, dataGetter: (Word) -> List<String>) {
@@ -40,15 +45,8 @@ class SeparateWordActivity : AppCompatActivity() {
             Toast.makeText(this,"La palabra no puede superar las 20 letras", Toast.LENGTH_LONG).show()
         else{
             val enteredWord= Word(enterWordText.text.toString())
-
-            if(!enteredWord.hasErrors()) {
-
-                adapter= SyllableRecyclerAdapter(this,dataGetter.invoke(enteredWord))
-                syllablesListView.adapter=adapter
-
-                enteredWordLabel.text=enterWordText.text
-                actionLabel.text=labelMessage
-            }
+            if(!enteredWord.hasErrors())
+                setStrings(dataGetter.invoke(enteredWord),labelMessage,enterWordText.text.toString())
             else{
                 Toast.makeText(this,enteredWord.errorMessage, Toast.LENGTH_SHORT).show()
                 Log.d("ERROR","Error: ${enteredWord.errorMessage}.")
@@ -57,11 +55,8 @@ class SeparateWordActivity : AppCompatActivity() {
     }
 
     fun clearClicked(view: View){
+        setStrings(ArrayList<String>(), WAITING_FOR_INPUT,getString(R.string.empty_string))
         enterWordText.text.clear()
-        actionLabel.text=WAITING_FOR_INPUT
-        enteredWordLabel.text=getString(R.string.empty_string)
-        adapter= SyllableRecyclerAdapter(this,ArrayList<String>())
-        syllablesListView.adapter=adapter
     }
 
     fun separateSyllablesClicked(view: View){
