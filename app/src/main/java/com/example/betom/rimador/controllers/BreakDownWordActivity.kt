@@ -10,15 +10,15 @@ import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
-import kotlinx.android.synthetic.main.activity_separate_word.*
+import kotlinx.android.synthetic.main.activity_break_down_word.*
 
-class SeparateWordActivity : AppCompatActivity() {
+class BreakDownWordActivity : AppCompatActivity() {
 
     private lateinit var adapter : SyllableRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_separate_word)
+        setContentView(R.layout.activity_break_down_word)
 
         setupSyllableAdapter()
     }

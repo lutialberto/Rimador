@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".controllers.SeparateWordActivity"
+    tools:context=".controllers.BreakDownWordActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText
