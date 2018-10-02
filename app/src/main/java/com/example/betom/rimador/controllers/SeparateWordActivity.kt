@@ -70,4 +70,17 @@ class SeparateWordActivity : AppCompatActivity() {
             w.getAssonatingStructure()
         }
     }
+
+    fun assonantRhymeButtonClicked(view: View){
+        showWordInformation(getString(R.string.rima_asonante)) {w:Word ->
+            w.getRhyme(false)
+        }
+    }
+
+    fun consonantRhymeButtonClicked(view: View){
+        showWordInformation(getString(R.string.rima_consonante)) {w:Word ->
+            w.getRhyme(true)
+        }
+    }
+
 }

@@ -94,4 +94,6 @@
     <string name="empty_string" />
     <string name="ver_rima_asonante">Ver rima asonante</string>
     <string name="ver_rima_consonante">Ver rima consonante</string>
+    <string name="rima_asonante">Rima asonante</string>
+    <string name="rima_consonante">Rima consonante</string>
 </resources>

@@ -13,24 +13,24 @@
         android:id="@+id/separateSyllablesButton"
         style="@style/rimadorButtons"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:onClick="separateSyllablesClicked"
         android:text="@string/separar_en_s_labas"
+        app:layout_constraintBottom_toTopOf="@+id/vocalStructureButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/syllablesListView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/vocalStructureButton"
         style="@style/rimadorButtons"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:onClick="vocalStructureClicked"
         android:text="@string/ver_estructura_vocal"
+        app:layout_constraintBottom_toTopOf="@+id/assonantRhymeButton"
         app:layout_constraintEnd_toEndOf="@+id/separateSyllablesButton"
-        app:layout_constraintStart_toStartOf="@+id/separateSyllablesButton"
-        app:layout_constraintTop_toBottomOf="@+id/separateSyllablesButton" />
+        app:layout_constraintStart_toStartOf="@+id/separateSyllablesButton" />
 
     <EditText
         android:id="@+id/enterWordText"
@@ -103,21 +103,23 @@
         android:id="@+id/assonantRhymeButton"
         style="@style/rimadorButtons"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="assonantRhymeButtonClicked"
         android:text="@string/ver_rima_asonante"
+        app:layout_constraintBottom_toTopOf="@+id/consonantRhymeButton"
         app:layout_constraintEnd_toEndOf="@+id/vocalStructureButton"
-        app:layout_constraintStart_toStartOf="@+id/vocalStructureButton"
-        app:layout_constraintTop_toBottomOf="@+id/vocalStructureButton" />
+        app:layout_constraintStart_toStartOf="@+id/vocalStructureButton" />
 
     <Button
         android:id="@+id/consonantRhymeButton"
         style="@style/rimadorButtons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="consonantRhymeButtonClicked"
         android:text="@string/ver_rima_consonante"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/assonantRhymeButton"
-        app:layout_constraintStart_toStartOf="@+id/assonantRhymeButton"
-        app:layout_constraintTop_toBottomOf="@+id/assonantRhymeButton" />
+        app:layout_constraintStart_toStartOf="@+id/assonantRhymeButton" />
 
 </android.support.constraint.ConstraintLayout>
