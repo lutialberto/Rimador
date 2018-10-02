@@ -9,36 +9,12 @@
     tools:context=".controllers.SeparateWordActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <Button
-        android:id="@+id/separateSyllablesButton"
-        style="@style/rimadorButtons"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="separateSyllablesClicked"
-        android:text="@string/separar_en_s_labas"
-        app:layout_constraintBottom_toTopOf="@+id/vocalStructureButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/vocalStructureButton"
-        style="@style/rimadorButtons"
-        android:layout_marginBottom="16dp"
-        android:onClick="vocalStructureClicked"
-        android:text="@string/ver_estructura_vocal"
-        app:layout_constraintBottom_toTopOf="@+id/assonantRhymeButton"
-        app:layout_constraintEnd_toEndOf="@+id/separateSyllablesButton"
-        app:layout_constraintStart_toStartOf="@+id/separateSyllablesButton" />
-
     <EditText
         android:id="@+id/enterWordText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/ingresar_palabra"
         android:inputType="textPersonName"
@@ -68,9 +44,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/separateSyllablesButton"
-        app:layout_constraintStart_toStartOf="@+id/separateSyllablesButton"
-        app:layout_constraintTop_toBottomOf="@+id/actionLabel" />
+        app:layout_constraintBottom_toTopOf="@+id/actionButtonLinearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/clearButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/actionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/actionLabel"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <TextView
         android:id="@+id/actionLabel"
@@ -81,7 +60,7 @@
         app:layout_constraintEnd_toStartOf="@+id/enteredWordLabel"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/syllablesListView"
+        app:layout_constraintStart_toStartOf="@+id/enterWordText"
         app:layout_constraintTop_toBottomOf="@+id/enterWordText"
         tools:text="@string/separada_en_silabas" />
 
@@ -99,27 +78,63 @@
         app:layout_constraintStart_toEndOf="@+id/enterWordText"
         app:layout_constraintTop_toTopOf="@+id/enterWordText" />
 
-    <Button
-        android:id="@+id/assonantRhymeButton"
-        style="@style/rimadorButtons"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:onClick="assonantRhymeButtonClicked"
-        android:text="@string/ver_rima_asonante"
-        app:layout_constraintBottom_toTopOf="@+id/consonantRhymeButton"
-        app:layout_constraintEnd_toEndOf="@+id/vocalStructureButton"
-        app:layout_constraintStart_toStartOf="@+id/vocalStructureButton" />
-
-    <Button
-        android:id="@+id/consonantRhymeButton"
-        style="@style/rimadorButtons"
+    <LinearLayout
+        android:id="@+id/actionButtonLinearLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="235dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:onClick="consonantRhymeButtonClicked"
-        android:text="@string/ver_rima_consonante"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/assonantRhymeButton"
-        app:layout_constraintStart_toStartOf="@+id/assonantRhymeButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/syllablesListView">
+
+        <Button
+            android:id="@+id/separateSyllablesButton"
+            style="@style/rimadorButtons"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="8dp"
+            android:onClick="separateSyllablesClicked"
+            android:text="@string/separar_en_s_labas"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="311dp" />
+
+        <Button
+            android:id="@+id/vocalStructureButton"
+            style="@style/rimadorButtons"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="vocalStructureClicked"
+            android:text="@string/ver_estructura_vocal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="375dp" />
+
+        <Button
+            android:id="@+id/assonantRhymeButton"
+            style="@style/rimadorButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="assonantRhymeButtonClicked"
+            android:text="@string/ver_rima_asonante"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="439dp" />
+
+        <Button
+            android:id="@+id/consonantRhymeButton"
+            style="@style/rimadorButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:onClick="consonantRhymeButtonClicked"
+            android:text="@string/ver_rima_consonante"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="503dp" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
