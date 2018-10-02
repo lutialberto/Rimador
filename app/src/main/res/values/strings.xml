@@ -92,4 +92,6 @@
     <string name="estructura_vocal">Estructura vocal:</string>
     <string name="limpiar">Limpiar</string>
     <string name="empty_string" />
+    <string name="ver_rima_asonante">Ver rima asonante</string>
+    <string name="ver_rima_consonante">Ver rima consonante</string>
 </resources>
