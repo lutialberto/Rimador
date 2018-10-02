@@ -16,3 +16,6 @@ const val ERROR_EMPTY_WORD = "Palabra vacia"
 const val ERROR_TO_MANY_ACCENT_MARKS = "No puede haber mas de una vocal con tilde por palabra"
 const val WORD_WITHOUT_ACCENT_MARK = -1
 const val TONIC_SYLLABLE_DEFAULT_VALUE = -2
+
+/**/
+const val NO_ACTION_REQUESTED = ""

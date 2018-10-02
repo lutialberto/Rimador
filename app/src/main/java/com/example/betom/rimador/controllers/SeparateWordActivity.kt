@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
 import com.example.betom.rimador.models.Word
+import com.example.betom.rimador.utilities.NO_ACTION_REQUESTED
 import kotlinx.android.synthetic.main.activity_separate_word.*
 
 class SeparateWordActivity : AppCompatActivity() {
@@ -47,15 +48,17 @@ class SeparateWordActivity : AppCompatActivity() {
 
                 enteredWordLabel.text=enterWordText.text
                 actionLabel.text=labelMessage
-
-                enterWordText.text.clear()
-
             }
             else{
                 Toast.makeText(this,enteredWord.errorMessage, Toast.LENGTH_SHORT).show()
                 Log.d("ERROR","Error: ${enteredWord.errorMessage}.")
             }
         }
+    }
+
+    fun clearClicked(view: View){
+        enterWordText.text.clear()
+        actionLabel.text=NO_ACTION_REQUESTED
     }
 
     fun separateSyllablesClicked(view: View){

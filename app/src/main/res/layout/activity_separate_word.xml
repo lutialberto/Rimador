@@ -4,38 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.SeparateWordActivity"
-    tools:layout_editor_absoluteY="25dp"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    tools:context=".controllers.SeparateWordActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <Button
         android:id="@+id/separateSyllablesButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/rimadorButtons"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginEnd="8dp"
         android:onClick="separateSyllablesClicked"
         android:text="@string/separar_en_s_labas"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/enterWordText"
-        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/syllablesListView" />
 
     <Button
         android:id="@+id/vocalStructureButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/rimadorButtons"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimaryDark"
         android:onClick="vocalStructureClicked"
         android:text="@string/ver_estructura_vocal"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/enterWordText"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintEnd_toEndOf="@+id/separateSyllablesButton"
+        app:layout_constraintStart_toStartOf="@+id/separateSyllablesButton"
         app:layout_constraintTop_toBottomOf="@+id/separateSyllablesButton" />
 
     <EditText
@@ -49,7 +43,9 @@
         android:hint="@string/ingresar_palabra"
         android:inputType="textPersonName"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/clearButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="Autofill" />
@@ -72,9 +68,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/enterWordText"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintEnd_toEndOf="@+id/separateSyllablesButton"
+        app:layout_constraintStart_toStartOf="@+id/separateSyllablesButton"
         app:layout_constraintTop_toBottomOf="@+id/actionLabel" />
 
     <TextView
@@ -86,8 +81,22 @@
         app:layout_constraintEnd_toStartOf="@+id/enteredWordLabel"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/enterWordText"
+        app:layout_constraintStart_toStartOf="@+id/syllablesListView"
         app:layout_constraintTop_toBottomOf="@+id/enterWordText"
         tools:text="@string/separada_en_silabas" />
+
+    <Button
+        android:id="@+id/clearButton"
+        style="@style/rimadorButtons"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="clearClicked"
+        android:text="@string/limpiar"
+        app:layout_constraintBottom_toBottomOf="@+id/enterWordText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/enterWordText"
+        app:layout_constraintTop_toTopOf="@+id/enterWordText" />
 
 </android.support.constraint.ConstraintLayout>
