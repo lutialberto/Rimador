@@ -91,4 +91,5 @@
     <string name="separada_en_silabas">Separada en silabas:</string>
     <string name="estructura_vocal">Estructura vocal:</string>
     <string name="limpiar">Limpiar</string>
+    <string name="empty_string" />
 </resources>

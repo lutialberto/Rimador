@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
 import com.example.betom.rimador.models.Word
-import com.example.betom.rimador.utilities.NO_ACTION_REQUESTED
+import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
 import kotlinx.android.synthetic.main.activity_separate_word.*
 
 class SeparateWordActivity : AppCompatActivity() {
@@ -58,7 +58,10 @@ class SeparateWordActivity : AppCompatActivity() {
 
     fun clearClicked(view: View){
         enterWordText.text.clear()
-        actionLabel.text=NO_ACTION_REQUESTED
+        actionLabel.text=WAITING_FOR_INPUT
+        enteredWordLabel.text=getString(R.string.empty_string)
+        adapter= SyllableRecyclerAdapter(this,ArrayList<String>())
+        syllablesListView.adapter=adapter
     }
 
     fun separateSyllablesClicked(view: View){

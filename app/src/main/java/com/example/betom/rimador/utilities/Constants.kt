@@ -18,4 +18,4 @@ const val WORD_WITHOUT_ACCENT_MARK = -1
 const val TONIC_SYLLABLE_DEFAULT_VALUE = -2
 
 /**/
-const val NO_ACTION_REQUESTED = ""
+const val WAITING_FOR_INPUT = "Esperando por una palabra"
