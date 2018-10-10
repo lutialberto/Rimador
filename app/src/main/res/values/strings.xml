@@ -96,4 +96,6 @@
     <string name="ver_rima_consonante">Ver rima consonante</string>
     <string name="rima_asonante">Rima asonante:</string>
     <string name="rima_consonante">Rima consonante:</string>
+    <string name="buscar_rima_consonante">Buscar rima consonante</string>
+    <string name="buscar_rima_asonante">Buscar rima asonante</string>
 </resources>
