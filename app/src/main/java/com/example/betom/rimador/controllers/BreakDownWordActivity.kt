@@ -38,23 +38,9 @@ class BreakDownWordActivity : AppCompatActivity() {
         enteredWordLabel.text=wordLabel
         actionLabel.text=action
     }
-/*
-    private fun showWordInformation(labelMessage:String, dataGetter: (Word) -> List<String>) {
-        if(enterWordText.length()>20)
-            Toast.makeText(this,"La palabra no puede superar las 20 letras", Toast.LENGTH_LONG).show()
-        else{
-            val enteredWord= Word(enterWordText.text.toString())
-            if(!enteredWord.hasErrors())
-                updateView(dataGetter.invoke(enteredWord),labelMessage,enterWordText.text.toString())
-            else{
-                Toast.makeText(this,enteredWord.errorMessage, Toast.LENGTH_SHORT).show()
-                Log.d("ERROR","Error: ${enteredWord.errorMessage}.")
-            }
-        }
-    }
-*/
+
     fun clearClicked(view: View){
-        updateView(ArrayList<String>(), WAITING_FOR_INPUT,getString(R.string.empty_string))
+        updateView(ArrayList(), WAITING_FOR_INPUT,getString(R.string.empty_string))
         enterWordText.text.clear()
     }
 
