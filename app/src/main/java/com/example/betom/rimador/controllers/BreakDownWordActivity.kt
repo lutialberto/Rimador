@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
 import com.example.betom.rimador.models.Word
+import com.example.betom.rimador.services.InputWordCorrector
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
 import kotlinx.android.synthetic.main.activity_break_down_word.*
 
@@ -26,13 +27,13 @@ class BreakDownWordActivity : AppCompatActivity() {
     private fun setupSyllableAdapter(){
         val rimador=Word("rimador")
 
-        setStrings(rimador.intoSyllables(),getString(R.string.separada_en_silabas),getString(R.string.rimador))
+        updateView(rimador.intoSyllables(),getString(R.string.separada_en_silabas),getString(R.string.rimador))
 
         val layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         syllablesListView.layoutManager=layoutManager
     }
 
-    private fun setStrings(elements: List<String>, action:String, wordLabel:String){
+    private fun updateView(elements: List<String>, action:String, wordLabel:String){
         adapter= SyllableRecyclerAdapter(this,elements)
         syllablesListView.adapter=adapter
 
@@ -46,7 +47,7 @@ class BreakDownWordActivity : AppCompatActivity() {
         else{
             val enteredWord= Word(enterWordText.text.toString())
             if(!enteredWord.hasErrors())
-                setStrings(dataGetter.invoke(enteredWord),labelMessage,enterWordText.text.toString())
+                updateView(dataGetter.invoke(enteredWord),labelMessage,enterWordText.text.toString())
             else{
                 Toast.makeText(this,enteredWord.errorMessage, Toast.LENGTH_SHORT).show()
                 Log.d("ERROR","Error: ${enteredWord.errorMessage}.")
@@ -55,14 +56,15 @@ class BreakDownWordActivity : AppCompatActivity() {
     }
 
     fun clearClicked(view: View){
-        setStrings(ArrayList<String>(), WAITING_FOR_INPUT,getString(R.string.empty_string))
+        updateView(ArrayList<String>(), WAITING_FOR_INPUT,getString(R.string.empty_string))
         enterWordText.text.clear()
     }
 
     fun separateSyllablesClicked(view: View){
-        showWordInformation(getString(R.string.separada_en_silabas)) { w:Word ->
-            w.intoSyllables()
-        }
+        val inputWord=Word(enterWordText.text.toString())
+        val wordCorrector=InputWordCorrector()
+        if(wordCorrector.showWordInformation(this,inputWord))
+            updateView(inputWord.intoSyllables(),getString(R.string.separada_en_silabas),inputWord.toString())
     }
 
     fun vocalStructureClicked(view: View) {

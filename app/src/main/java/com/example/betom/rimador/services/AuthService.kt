@@ -1,7 +1,6 @@
 package com.example.betom.rimador.services
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -22,7 +21,7 @@ object AuthService {
 
         val requestBody=jsonBody.toString()
 
-        val registerRequest= object : StringRequest(Method.POST, URL_WORDS,Response.Listener {response ->
+        val registerRequest= object : StringRequest(Method.POST, URL_WORDS,Response.Listener {_ ->
             complete(true)
         },Response.ErrorListener {_ ->
             complete(false)
@@ -35,7 +34,6 @@ object AuthService {
                 return requestBody.toByteArray()
             }
         }
-
         Volley.newRequestQueue(context).add(registerRequest)
     }
 }
