@@ -9,7 +9,6 @@ import com.android.volley.toolbox.Volley
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.utilities.URL_FIND_WORD_CONSONANT_RHYME
 import com.example.betom.rimador.utilities.URL_WORDS
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -21,11 +20,11 @@ object WordService {
         val jsonBody=JSONObject()
 
         jsonBody.put("chain",word.str)
-        jsonBody.put("assonantRhyme",word.getRhyme(false))
-        jsonBody.put("consonantRhyme",word.getRhyme(true))
+        jsonBody.put("assonantRhyme", word.intoString(true,word.getRhyme(false)))
+        jsonBody.put("consonantRhyme", word.intoString(false,word.getRhyme(true)))
         jsonBody.put("firstSyllable",word.syllables.first())
         jsonBody.put("lastSyllable",word.syllables.last())
-        jsonBody.put("vocalSkeleton",word.getAssonatingStructure())
+        jsonBody.put("vocalSkeleton", word.intoString(true,word.getAssonatingStructure()))
 
         val requestBody=jsonBody.toString()
 

@@ -39,10 +39,12 @@ class SearchRhymeActivity : AppCompatActivity() {
 
     fun searchConsonantRhymeClicked(view: View) {
         val inputWord=Word(newWordText.text.toString())
-        val consonantSufix=inputWord.getRhyme(true).toString()
+        val consonantSufix=inputWord.getRhyme(true)
+        val stringConsonantSufix=inputWord.intoString(false,consonantSufix)
+
         val wordCorrector= InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
-            WordService.getConsonantRhymeWords(this,consonantSufix){ complete ->
+            WordService.getConsonantRhymeWords(this,stringConsonantSufix){ complete ->
                 if(complete){
                     wordAdapter.notifyDataSetChanged()
                 }

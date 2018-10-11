@@ -68,7 +68,7 @@ class Word (str:String) {
     * caso4: güeva -> 'ue'-a
     * caso5: estación -> e-a-'ió'
     * */
-    fun getAssonatingStructure():List<String> {
+    fun getAssonatingStructure():ArrayList<String> {
         val structure = ArrayList<String>()
         if(!hasErrors()) {
             for ( syllable in syllables) {
@@ -187,5 +187,14 @@ class Word (str:String) {
 
     private fun getSyllablesSize(): Int {
         return syllables.size
+    }
+
+    public fun intoString(separateElements:Boolean, elements:ArrayList<String>):String {
+        var s=""
+        val sep=if(separateElements) "-" else ""
+        for (e in elements){
+            s+=e+sep
+        }
+        return if(separateElements) s.substring(0,s.length-1) else s
     }
 }
