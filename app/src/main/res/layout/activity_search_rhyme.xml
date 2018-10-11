@@ -7,6 +7,7 @@
     tools:context=".controllers.SearchRhymeActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -14,9 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/newWordText"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/newWordText"
-        app:layout_constraintTop_toBottomOf="@+id/newWordText"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="@+id/newWordText">
 
         <Button
             android:id="@+id/searchAssonantRhymeButton"
@@ -52,4 +51,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="Autofill" />
+
+    <ListView
+        android:id="@+id/wordsListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="@+id/newWordText"
+        app:layout_constraintStart_toStartOf="@+id/newWordText"
+        app:layout_constraintTop_toBottomOf="@+id/newWordText"/>
 </android.support.constraint.ConstraintLayout>
