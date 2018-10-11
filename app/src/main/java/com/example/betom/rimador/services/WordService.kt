@@ -25,7 +25,7 @@ object WordService {
         jsonBody.put("consonantRhyme",word.getRhyme(true))
         jsonBody.put("firstSyllable",word.syllables.first())
         jsonBody.put("lastSyllable",word.syllables.last())
-        jsonBody.put("vocalSkeleton",word.getAssonatingStructure().toString())
+        jsonBody.put("vocalSkeleton",word.getAssonatingStructure())
 
         val requestBody=jsonBody.toString()
 

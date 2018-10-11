@@ -55,21 +55,20 @@ class BreakDownWordActivity : AppCompatActivity() {
         val inputWord=Word(enterWordText.text.toString())
         val wordCorrector=InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
-            updateView(inputWord.getAssonatingStructure(),getString(R.string.separada_en_silabas),inputWord.toString())
+            updateView(inputWord.getAssonatingStructure(),getString(R.string.estructura_vocal),inputWord.toString())
     }
 
     fun assonantRhymeButtonClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
         val wordCorrector=InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
-            updateView(inputWord.getRhyme(false),getString(R.string.separada_en_silabas),inputWord.toString())
+            updateView(inputWord.getRhyme(false),getString(R.string.rima_asonante),inputWord.toString())
     }
 
     fun consonantRhymeButtonClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
         val wordCorrector=InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
-            updateView(inputWord.getRhyme(true),getString(R.string.separada_en_silabas),inputWord.toString())
+            updateView(inputWord.getRhyme(true),getString(R.string.rima_consonante),inputWord.toString())
     }
-
 }

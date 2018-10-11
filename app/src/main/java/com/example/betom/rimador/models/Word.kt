@@ -13,11 +13,18 @@ class Word (str:String) {
     init {
         syllables=ArrayList<Syllable>()
         errorMessage= NO_ERRORS
-        val wordSeparator=WordSeparator()
-        wordSeparator.separarEnSilabas(this)
         tonicSyllablePosition=TONIC_SYLLABLE_DEFAULT_VALUE
-        tonicSyllablePosition=getTonicSyllable()
+        if(correctSize()) {
+            val wordSeparator = WordSeparator()
+            wordSeparator.separarEnSilabas(this)
+            tonicSyllablePosition=getTonicSyllable()
+        }
+        else
+            errorMessage= ERROR_WORD_SIZE_ABOVE_LIMIT
+    }
 
+    private fun correctSize():Boolean{
+        return str.length<= MAX_WORD_SIZE
     }
 
     fun addSyllable(syllable: Syllable){
