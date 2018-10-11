@@ -48,7 +48,7 @@ class WordSeparator {
             'l' -> 5  //consonantes que forman grupo con 'l' y cig
             'r' -> 6  //consonantes que forman grupo con 'r' y cig
             'h' -> 7  //consonantes que forman grupo con 'c'
-            'j','k','m','n','q','s','v','w','x','y','z' -> 8 //cn: no forman grupo
+            'j','k','m','n','ñ','q','s','v','w','x','y','z' -> 8 //cn: no forman grupo
             ' ' -> 9  //caracter de fin de word
             else -> 10  //error
         }

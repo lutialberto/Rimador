@@ -6,12 +6,11 @@ import com.example.betom.rimador.utilities.*
 class Word (str:String) {
 
     val str: String = str.trim()
-    var syllables: ArrayList<Syllable>
+    var syllables=ArrayList<Syllable>()
     var errorMessage: String
     private var tonicSyllablePosition: Int
 
     init {
-        syllables=ArrayList<Syllable>()
         errorMessage= NO_ERRORS
         tonicSyllablePosition=TONIC_SYLLABLE_DEFAULT_VALUE
         if(correctSize()) {
@@ -189,7 +188,7 @@ class Word (str:String) {
         return syllables.size
     }
 
-    public fun intoString(separateElements:Boolean, elements:ArrayList<String>):String {
+    fun intoString(separateElements:Boolean, elements:ArrayList<String>):String {
         var s=""
         val sep=if(separateElements) "-" else ""
         for (e in elements){

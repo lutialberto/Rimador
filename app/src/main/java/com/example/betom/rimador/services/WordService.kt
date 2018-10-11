@@ -26,7 +26,8 @@ object WordService {
         jsonBody.put("lastSyllable",word.syllables.last())
         jsonBody.put("vocalSkeleton", word.intoString(true,word.getAssonatingStructure()))
 
-        val requestBody=jsonBody.toString()
+        val codifier=StringCodifier()
+        val requestBody=codifier.getDBText(jsonBody.toString())
 
         val registerRequest= object : StringRequest(Method.POST, URL_WORDS,Response.Listener {_ ->
             complete(true)
@@ -44,15 +45,16 @@ object WordService {
         Volley.newRequestQueue(context).add(registerRequest)
     }
 
-    fun getConsonantRhymeWords(context: Context,sufix:String,complete: (Boolean) -> Unit){
+    fun findWords(context: Context, url:String, complete: (Boolean) -> Unit){
 
-        val findWordsRequest= object : JsonArrayRequest(Method.GET, "${URL_FIND_WORD_CONSONANT_RHYME}$sufix",
+        val findWordsRequest= object : JsonArrayRequest(Method.GET, url,
                 null,Response.Listener {response ->
             try {
                 words.clear()
+                val codifier=StringCodifier()
                 for (i in 0 until response.length()){
                     val word=response.getJSONObject(i)
-                    val newWord=Word(word.getString("chain"))
+                    val newWord=Word(codifier.getAppText(word.getString("chain")))
                     words.add(newWord)
                 }
                 complete(true)
@@ -60,7 +62,7 @@ object WordService {
                 Log.d("JSON","EXC: ${e.localizedMessage}")
             }
         }, Response.ErrorListener {error ->
-            Log.d("ERROR","Could not find words with consonant rhyme: $error")
+            Log.d("ERROR","Could not find words : $error")
             complete(false)
         }) {
             override fun getBodyContentType(): String {
