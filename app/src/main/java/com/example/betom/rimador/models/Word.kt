@@ -3,8 +3,9 @@ package com.example.betom.rimador.models
 import com.example.betom.rimador.services.WordSeparator
 import com.example.betom.rimador.utilities.*
 
-class Word (val str:String) {
+class Word (str:String) {
 
+    val str: String = str.trim()
     var syllables: ArrayList<Syllable>
     var errorMessage: String
     private var tonicSyllablePosition: Int
@@ -24,10 +25,6 @@ class Word (val str:String) {
     }
 
     override fun toString(): String {
-        var str=""
-        for (syllable in syllables){
-            str+=syllable.toString()
-        }
         return str
     }
 
@@ -67,7 +64,7 @@ class Word (val str:String) {
     fun getAssonatingStructure():List<String> {
         val structure = ArrayList<String>()
         if(!hasErrors()) {
-            for ((i, syllable) in syllables.withIndex()) {
+            for ( syllable in syllables) {
 
                 var vowels = syllable.vowels
 

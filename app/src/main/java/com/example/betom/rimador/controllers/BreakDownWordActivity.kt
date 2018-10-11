@@ -47,28 +47,28 @@ class BreakDownWordActivity : AppCompatActivity() {
     fun separateSyllablesClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
         val wordCorrector=InputWordCorrector()
-        if(wordCorrector.showWordInformation(this,inputWord))
+        if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.intoSyllables(),getString(R.string.separada_en_silabas),inputWord.toString())
     }
 
     fun vocalStructureClicked(view: View) {
         val inputWord=Word(enterWordText.text.toString())
         val wordCorrector=InputWordCorrector()
-        if(wordCorrector.showWordInformation(this,inputWord))
+        if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.getAssonatingStructure(),getString(R.string.separada_en_silabas),inputWord.toString())
     }
 
     fun assonantRhymeButtonClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
         val wordCorrector=InputWordCorrector()
-        if(wordCorrector.showWordInformation(this,inputWord))
+        if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.getRhyme(false),getString(R.string.separada_en_silabas),inputWord.toString())
     }
 
     fun consonantRhymeButtonClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
         val wordCorrector=InputWordCorrector()
-        if(wordCorrector.showWordInformation(this,inputWord))
+        if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.getRhyme(true),getString(R.string.separada_en_silabas),inputWord.toString())
     }
 
