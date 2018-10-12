@@ -170,12 +170,12 @@ class Word (str:String) {
             val rhymeSyllables = syllables.subList(tonicSyllablePosition + 1, syllables.size)
 
             if (consonantRhyme) {
-                rhyme.add(tonicSyllable.vowels + tonicSyllable.syllabicSufix)
+                rhyme.add(tonicSyllable.vowels.last() + tonicSyllable.syllabicSufix)
                 rhymeSyllables.forEach { syllable ->
                     rhyme.add(syllable.toString())
                 }
             } else {
-                rhyme.add((tonicSyllable.vowels))
+                rhyme.add((tonicSyllable.vowels.last().toString()))
                 rhymeSyllables.forEach { syllable ->
                     rhyme.add(syllable.vowels)
                 }
