@@ -56,11 +56,54 @@
         android:id="@+id/wordsListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="@+id/newWordText"
         app:layout_constraintStart_toStartOf="@+id/newWordText"
-        app:layout_constraintTop_toBottomOf="@+id/newWordText"/>
+        app:layout_constraintTop_toBottomOf="@+id/searchChosenText" />
+
+    <TextView
+        android:id="@+id/searchChosenText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/newWordText"
+        app:layout_constraintTop_toBottomOf="@+id/newWordText"
+        tools:text="@string/rima_asonante" />
+
+    <TextView
+        android:id="@+id/matchesCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/coincidenceText"
+        app:layout_constraintTop_toBottomOf="@+id/newWordText"
+        tools:text="18" />
+
+    <TextView
+        android:id="@+id/searchParameterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/matchesCountText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/searchChosenText"
+        app:layout_constraintTop_toTopOf="@+id/searchChosenText"
+        tools:text="a-o" />
+
+    <TextView
+        android:id="@+id/coincidenceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/newWordText"
+        app:layout_constraintTop_toBottomOf="@+id/newWordText"
+        tools:text=" coincidencias" />
 </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@ import com.example.betom.rimador.services.InputWordCorrector
 import com.example.betom.rimador.services.StringCodifier
 import com.example.betom.rimador.utilities.URL_FIND_WORD_ASSONANT_RHYME
 import com.example.betom.rimador.utilities.URL_FIND_WORD_CONSONANT_RHYME
+import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
 import kotlinx.android.synthetic.main.activity_search_rhyme.*
 
 class SearchRhymeActivity : AppCompatActivity() {
@@ -27,6 +28,11 @@ class SearchRhymeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_rhyme)
         setupAdapters()
+
+        searchChosenText.text= WAITING_FOR_INPUT
+        searchParameterText.text=""
+        matchesCountText.text=""
+        coincidenceText.text=""
     }
 
     fun searchAssonantRhymeClicked(view :View) {
@@ -42,6 +48,11 @@ class SearchRhymeActivity : AppCompatActivity() {
             WordService.findWords(this,url){ complete ->
                 if(complete){
                     wordAdapter.notifyDataSetChanged()
+
+                    searchChosenText.text= getString(R.string.rima_asonante)
+                    searchParameterText.text=stringList
+                    matchesCountText.text= WordService.words.size.toString()
+                    coincidenceText.text=getString(R.string.coincidence)
                 }
             }
         else{
@@ -62,6 +73,12 @@ class SearchRhymeActivity : AppCompatActivity() {
             WordService.findWords(this,url){ complete ->
                 if(complete){
                     wordAdapter.notifyDataSetChanged()
+
+                    searchChosenText.text= getString(R.string.rima_consonante)
+                    searchParameterText.text=stringList
+                    matchesCountText.text= WordService.words.size.toString()
+                    coincidenceText.text=getString(R.string.coincidence)
+
                 }
             }
         else{

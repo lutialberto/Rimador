@@ -16,8 +16,9 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
 
-        <activity android:name=".controllers.SearchRhymeActivity" >
-            <intent-filter>
+        <activity android:name=".controllers.SearchRhymeActivity"
+            android:windowSoftInputMode="adjustPan">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
