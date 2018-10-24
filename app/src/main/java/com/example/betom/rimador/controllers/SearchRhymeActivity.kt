@@ -78,12 +78,10 @@ class SearchRhymeActivity : AppCompatActivity() {
                     searchParameterText.text=stringList
                     matchesCountText.text= WordService.words.size.toString()
                     coincidenceText.text=getString(R.string.coincidence)
-
                 }
             }
         else{
             Log.d("ERROR","Error: ${inputWord.errorMessage}")
         }
     }
-
 }

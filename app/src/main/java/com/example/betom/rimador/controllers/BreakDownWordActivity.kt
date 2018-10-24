@@ -3,6 +3,7 @@ package com.example.betom.rimador.controllers
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.KeyEvent
 import android.view.View
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
@@ -20,6 +21,14 @@ class BreakDownWordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_break_down_word)
 
         setupSyllableAdapter()
+        setupOnKeyListener()
+    }
+
+    private fun setupOnKeyListener(){
+        enterWordText.setOnKeyListener(View.OnKeyListener {v,_, _ ->
+            separateSyllablesClicked(v)
+            return@OnKeyListener true
+        })
     }
 
     private fun setupSyllableAdapter(){

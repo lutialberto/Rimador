@@ -123,11 +123,14 @@ class Word (str:String) {
 
                 return if (tonicSyllablePosition == WORD_WITHOUT_ACCENT_MARK) {
                     val maxSyllables = getSyllablesSize()
-                    when (accentMarkInLastPosition()) {
-                        true -> maxSyllables - 1 //es aguda
-                        false -> maxSyllables - 2 //es grave
-                    //no puede ser esdrujula porque no lleva tilde
-                    }
+                    if(maxSyllables==1)
+                        0 //es monosilabo
+                    else
+                        when (accentMarkInLastPosition()) {
+                            true -> maxSyllables - 1 //es aguda
+                            false -> maxSyllables - 2 //es grave
+                        //no puede ser esdrujula porque no lleva tilde
+                        }
                 } else {
                     tonicSyllablePosition
                 }
