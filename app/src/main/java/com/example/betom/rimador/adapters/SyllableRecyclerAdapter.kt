@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.betom.rimador.R
-import com.example.betom.rimador.models.Syllable
 
 class SyllableRecyclerAdapter(val context: Context, val syllables: List<String>) : RecyclerView.Adapter<SyllableRecyclerAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): Holder {
         val view=LayoutInflater.from(parent.context)
-                .inflate(R.layout.view_syllable_item,parent,false)
+                .inflate(R.layout.syllable_list_item,parent,false)
         return Holder(view)
     }
 

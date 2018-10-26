@@ -19,14 +19,14 @@ import kotlinx.android.synthetic.main.activity_search_rhyme.*
 
 class SearchRhymeActivity : AppCompatActivity() {
 
-    private lateinit var wordAdapter: WordRecycleAdapter
-
+    private lateinit var wordRecyclerAdapter: WordRecycleAdapter
     private fun setupAdapters(){
-        wordAdapter= WordRecycleAdapter(this,WordService.words)
-        wordsListView.adapter= this.wordAdapter
+        wordRecyclerAdapter= WordRecycleAdapter(this,WordService.words)
+        wordsListView.adapter= this.wordRecyclerAdapter
 
         val layoutManager=LinearLayoutManager(this)
         wordsListView.layoutManager=layoutManager
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,20 +54,17 @@ class SearchRhymeActivity : AppCompatActivity() {
 
     private fun searchRhyme(consonantRhyme:Boolean,rhymeUrl:String,resourceString:String) {
         enableSpinner(true)
-
         val inputWord = Word(newWordText.text.toString())
-        val list = inputWord.getRhyme(consonantRhyme)
-        val stringList = inputWord.intoString(!consonantRhyme, list)
+        if (InputWordCorrector().validateWord(this, inputWord)) {
 
-        val codifier = StringCodifier()
-        val url = "$rhymeUrl${codifier.getDBText(stringList)}"
+            val list = inputWord.getRhyme(consonantRhyme)
+            val stringList = inputWord.intoString(!consonantRhyme, list)
 
-        val wordCorrector = InputWordCorrector()
-        if (wordCorrector.validateWord(this, inputWord)) {
+            val url = "$rhymeUrl${StringCodifier().getDBText(stringList)}"
 
             WordService.findWords(this, url) { complete ->
                 if (complete) {
-                    wordAdapter.notifyDataSetChanged()
+                    wordRecyclerAdapter.notifyDataSetChanged()
 
                     searchChosenText.text = resourceString
                     searchParameterText.text = stringList
@@ -82,6 +79,14 @@ class SearchRhymeActivity : AppCompatActivity() {
             Log.d("ERROR", "Error: ${inputWord.errorMessage}")
             enableSpinner(false)
         }
+    }
+
+    private fun scrollToFirstItem(c:Char){
+
+        val firstItem=WordService.words.find { w ->
+            w.toString().first()=='b'
+        }
+        wordsListView.scrollToPosition(WordService.words.indexOf(firstItem))
     }
 
     fun searchAssonantRhymeClicked(view :View) {

@@ -22,12 +22,12 @@ class WordRecycleAdapter(val context: Context, private val wordList:ArrayList<Wo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view=LayoutInflater.from(parent.context)
-                .inflate(R.layout.view_syllable_item,parent,false)
+                .inflate(R.layout.word_list_item,parent,false)
         return Holder(view)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val wordText=itemView.findViewById<TextView>(R.id.syllableTextView)
+        val wordText=itemView.findViewById<TextView>(R.id.wordTextView)
 
         fun bindWord(word:Word,context: Context){
             wordText.text=word.toString()
