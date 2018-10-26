@@ -48,71 +48,43 @@ class SearchRhymeActivity : AppCompatActivity() {
         searchAssonantRhymeButton.isEnabled=!enable
     }
 
-    fun searchAssonantRhymeClicked(view :View) {
-
+    private fun searchRhyme(consonantRhyme:Boolean,rhymeUrl:String,resourceString:String) {
         enableSpinner(true)
 
-        val inputWord=Word(newWordText.text.toString())
-        val list=inputWord.getRhyme(false)
-        val stringList=inputWord.intoString(true,list)
+        val inputWord = Word(newWordText.text.toString())
+        val list = inputWord.getRhyme(consonantRhyme)
+        val stringList = inputWord.intoString(!consonantRhyme, list)
 
-        val codifier= StringCodifier()
-        val url="$URL_FIND_WORD_ASSONANT_RHYME${codifier.getDBText(stringList)}"
+        val codifier = StringCodifier()
+        val url = "$rhymeUrl${codifier.getDBText(stringList)}"
 
-        val wordCorrector= InputWordCorrector()
-        if(wordCorrector.validateWord(this,inputWord)) {
+        val wordCorrector = InputWordCorrector()
+        if (wordCorrector.validateWord(this, inputWord)) {
 
             WordService.findWords(this, url) { complete ->
                 if (complete) {
                     wordAdapter.notifyDataSetChanged()
 
-                    searchChosenText.text = getString(R.string.rima_asonante)
+                    searchChosenText.text = resourceString
                     searchParameterText.text = stringList
                     matchesCountText.text = WordService.words.size.toString()
                     coincidenceText.text = getString(R.string.coincidence)
                 } else {
-                    Toast.makeText(this,"Algo salio mal",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show()
                 }
                 enableSpinner(false)
             }
-        }
-        else{
-            Log.d("ERROR","Error: ${inputWord.errorMessage}")
+        } else {
+            Log.d("ERROR", "Error: ${inputWord.errorMessage}")
             enableSpinner(false)
         }
     }
 
+    fun searchAssonantRhymeClicked(view :View) {
+        searchRhyme(false, URL_FIND_WORD_ASSONANT_RHYME,getString(R.string.rima_asonante))
+    }
+
     fun searchConsonantRhymeClicked(view: View) {
-
-        enableSpinner(true)
-
-        val inputWord=Word(newWordText.text.toString())
-        val list=inputWord.getRhyme(true)
-        val stringList=inputWord.intoString(false,list)
-
-        val codifier= StringCodifier()
-        val url="$URL_FIND_WORD_CONSONANT_RHYME${codifier.getDBText(stringList)}"
-
-        val wordCorrector= InputWordCorrector()
-        if(wordCorrector.validateWord(this,inputWord)) {
-
-            WordService.findWords(this, url) { complete ->
-                if (complete) {
-                    wordAdapter.notifyDataSetChanged()
-
-                    searchChosenText.text = getString(R.string.rima_consonante)
-                    searchParameterText.text = stringList
-                    matchesCountText.text = WordService.words.size.toString()
-                    coincidenceText.text = getString(R.string.coincidence)
-                } else {
-                    Toast.makeText(this,"Algo salio mal",Toast.LENGTH_SHORT).show()
-                }
-                enableSpinner(false)
-            }
-        }
-        else{
-            Log.d("ERROR","Error: ${inputWord.errorMessage}")
-            enableSpinner(false)
-        }
+        searchRhyme(true, URL_FIND_WORD_CONSONANT_RHYME,getString(R.string.rima_consonante))
     }
 }
