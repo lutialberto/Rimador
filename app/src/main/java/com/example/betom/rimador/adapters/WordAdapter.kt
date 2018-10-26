@@ -1,6 +1,7 @@
 package com.example.betom.rimador.adapters
 
 import android.content.Context
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,23 @@ class WordAdapter(val context: Context, private val wordList:ArrayList<Word>) : 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val wordView:View=LayoutInflater.from(context).inflate(R.layout.view_syllable_item,null)
-        val wordText: TextView= wordView.findViewById(R.id.syllableTextView)
+        val wordView:View
+        val holder:ViewHolder
+
+        if(convertView==null){
+            wordView=LayoutInflater.from(context).inflate(R.layout.view_syllable_item,null)
+            holder=ViewHolder()
+            holder.wordText= wordView.findViewById(R.id.syllableTextView)
+
+            wordView.tag=holder
+        } else {
+            holder=convertView.tag as ViewHolder
+            wordView=convertView
+        }
+
         val word=wordList[position]
 
-        wordText.text=word.toString()
+        holder.wordText?.text=word.toString()
 
         return wordView
     }
@@ -32,5 +45,10 @@ class WordAdapter(val context: Context, private val wordList:ArrayList<Word>) : 
 
     override fun getCount(): Int {
         return wordList.count()
+    }
+
+    private class ViewHolder {
+        var wordText: TextView?=null
+
     }
 }
