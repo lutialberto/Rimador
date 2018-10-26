@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.example.betom.rimador.models.Word
 
 class InputWordCorrector {
-    public fun validateWord(context: Context, word:Word):Boolean {
+    fun validateWord(context: Context, word:Word):Boolean {
         return if(!word.hasErrors())
                 true
             else{

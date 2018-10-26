@@ -1,6 +1,5 @@
 package com.example.betom.rimador.wordHandlers
 
-import android.util.Log
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.models.Syllable
 import com.example.betom.rimador.utilities.*
@@ -11,31 +10,31 @@ class WordSeparator {
     private lateinit var lastSyllable: Syllable
     private lateinit var word: Word
 
-    fun separarEnSilabas (p:Word){
+    fun separateIntoSyllables (p:Word){
         acumulated=""
         lastSyllable=Syllable()
         this.word= p
         var state=0
-        Log.d("SEP","str a separarEnSilabas -> |${word.str}|")
+//        Log.d("SEP","str a separateIntoSyllables -> |${word.str}|")
 
         val stateMatrix= changeStateMatrixInit()
         val actionMatrix= actionMatrixInit()
 
         val cadena="${word.str.toLowerCase().trim()}$END_OF_WORD_DELIMITER"
-        Log.d("SEP","str a separarEnSilabas -> |$cadena|")
+//        Log.d("SEP","str a separateIntoSyllables -> |$cadena|")
 
         for (letter in cadena){
             if(state!=-1) {
                 val letterSet= findLetterSet(letter)
-                Log.d("SEP","estado actual, grupo -> |$state|$letterSet|$letter|")
+//                Log.d("SEP","estado actual, grupo -> |$state|$letterSet|$letter|")
                 //dado la letra y estado actual llamo a la funcion correspondiente de la matriz
                 actionMatrix[LETTER_SETS_COUNT*state+letterSet](letter)
                 //dado la letra y estado actual consigo el proximo estado
                 state=stateMatrix[LETTER_SETS_COUNT*state+letterSet]
-                Log.d("SEP","estado nuevo -> |$state|")
+//                Log.d("SEP","estado nuevo -> |$state|")
             }
         }
-        Log.d("SEP","str separada -> |${word.intoSyllables()}|")
+//        Log.d("SEP","str separada -> |${word.intoSyllables()}|")
     }
 
     private fun findLetterSet(letter: Char): Int {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.betom.rimador.R
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
@@ -34,9 +35,22 @@ class SearchRhymeActivity : AppCompatActivity() {
         matchesCountText.text=""
         coincidenceText.text=""
 
+        enableSpinner(false)
+    }
+
+    private fun enableSpinner(enable:Boolean){
+        if(enable){
+            searchSpinner.visibility=View.VISIBLE
+        }else{
+            searchSpinner.visibility=View.INVISIBLE
+        }
+        searchConsonantRhymeButton.isEnabled=!enable
+        searchAssonantRhymeButton.isEnabled=!enable
     }
 
     fun searchAssonantRhymeClicked(view :View) {
+
+        enableSpinner(true)
 
         val inputWord=Word(newWordText.text.toString())
         val list=inputWord.getRhyme(false)
@@ -46,23 +60,32 @@ class SearchRhymeActivity : AppCompatActivity() {
         val url="$URL_FIND_WORD_ASSONANT_RHYME${codifier.getDBText(stringList)}"
 
         val wordCorrector= InputWordCorrector()
-        if(wordCorrector.validateWord(this,inputWord))
-            WordService.findWords(this,url){ complete ->
-                if(complete){
+        if(wordCorrector.validateWord(this,inputWord)) {
+
+            WordService.findWords(this, url) { complete ->
+                if (complete) {
                     wordAdapter.notifyDataSetChanged()
 
-                    searchChosenText.text= getString(R.string.rima_asonante)
-                    searchParameterText.text=stringList
-                    matchesCountText.text= WordService.words.size.toString()
-                    coincidenceText.text=getString(R.string.coincidence)
+                    searchChosenText.text = getString(R.string.rima_asonante)
+                    searchParameterText.text = stringList
+                    matchesCountText.text = WordService.words.size.toString()
+                    coincidenceText.text = getString(R.string.coincidence)
+                } else {
+                    Toast.makeText(this,"Algo salio mal",Toast.LENGTH_SHORT).show()
                 }
+                enableSpinner(false)
             }
+        }
         else{
             Log.d("ERROR","Error: ${inputWord.errorMessage}")
+            enableSpinner(false)
         }
     }
 
     fun searchConsonantRhymeClicked(view: View) {
+
+        enableSpinner(true)
+
         val inputWord=Word(newWordText.text.toString())
         val list=inputWord.getRhyme(true)
         val stringList=inputWord.intoString(false,list)
@@ -71,19 +94,25 @@ class SearchRhymeActivity : AppCompatActivity() {
         val url="$URL_FIND_WORD_CONSONANT_RHYME${codifier.getDBText(stringList)}"
 
         val wordCorrector= InputWordCorrector()
-        if(wordCorrector.validateWord(this,inputWord))
-            WordService.findWords(this,url){ complete ->
-                if(complete){
+        if(wordCorrector.validateWord(this,inputWord)) {
+
+            WordService.findWords(this, url) { complete ->
+                if (complete) {
                     wordAdapter.notifyDataSetChanged()
 
-                    searchChosenText.text= getString(R.string.rima_consonante)
-                    searchParameterText.text=stringList
-                    matchesCountText.text= WordService.words.size.toString()
-                    coincidenceText.text=getString(R.string.coincidence)
+                    searchChosenText.text = getString(R.string.rima_consonante)
+                    searchParameterText.text = stringList
+                    matchesCountText.text = WordService.words.size.toString()
+                    coincidenceText.text = getString(R.string.coincidence)
+                } else {
+                    Toast.makeText(this,"Algo salio mal",Toast.LENGTH_SHORT).show()
                 }
+                enableSpinner(false)
             }
+        }
         else{
             Log.d("ERROR","Error: ${inputWord.errorMessage}")
+            enableSpinner(false)
         }
     }
 }

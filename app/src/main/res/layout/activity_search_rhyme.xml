@@ -79,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/coincidenceText"
         app:layout_constraintTop_toBottomOf="@+id/newWordText"
@@ -106,4 +107,16 @@
         app:layout_constraintEnd_toEndOf="@+id/newWordText"
         app:layout_constraintTop_toBottomOf="@+id/newWordText"
         tools:text=" coincidencias" />
+
+    <ProgressBar
+        android:id="@+id/searchSpinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

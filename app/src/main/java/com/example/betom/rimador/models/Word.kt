@@ -15,7 +15,7 @@ class Word (str:String) {
         tonicSyllablePosition=TONIC_SYLLABLE_DEFAULT_VALUE
         if(correctSize()) {
             val wordSeparator = WordSeparator()
-            wordSeparator.separarEnSilabas(this)
+            wordSeparator.separateIntoSyllables(this)
             tonicSyllablePosition=getTonicSyllable()
         }
         else
