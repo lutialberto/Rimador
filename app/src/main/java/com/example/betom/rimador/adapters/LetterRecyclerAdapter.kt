@@ -7,30 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.betom.rimador.R
-import com.example.betom.rimador.models.Word
 
-class WordRecycleAdapter(val context: Context, private val wordList:ArrayList<Word>) : RecyclerView.Adapter<WordRecycleAdapter.Holder>() {
-
+class LetterRecycleAdapter(val context: Context, private val letterList: CharArray) : RecyclerView.Adapter<LetterRecycleAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bindWord(wordList[position],context)
+        holder.bindWord(letterList[position],context)
     }
 
     override fun getItemCount(): Int {
-        return wordList.count()
+        return letterList.count()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view=LayoutInflater.from(parent.context)
-                .inflate(R.layout.word_list_item,parent,false)
+                .inflate(R.layout.word_list_item,parent,false) //acomodar este
         return Holder(view)
     }
 
+    //acomodar este
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val wordText= itemView.findViewById<TextView>(R.id.wordTextView)!!
+        private val letterText= itemView.findViewById<TextView>(R.id.wordTextView)!! //acomodar este
 
-        fun bindWord(word:Word,context: Context){
-            wordText.text=word.toString()
+        fun bindWord(c:Char,context: Context){
+            letterText.text=c.toString()
         }
     }
 }

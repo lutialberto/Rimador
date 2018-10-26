@@ -59,15 +59,15 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="@+id/newWordText"
-        app:layout_constraintStart_toStartOf="@+id/newWordText"
-        app:layout_constraintTop_toBottomOf="@+id/searchChosenText"
         app:fastScrollEnabled="true"
         app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
         app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
         app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"/>
+        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="@+id/newWordText"
+        app:layout_constraintStart_toStartOf="@+id/newWordText"
+        app:layout_constraintTop_toBottomOf="@+id/letterListView" />
 
     <TextView
         android:id="@+id/searchChosenText"
@@ -123,5 +123,14 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/letterListView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/coincidenceText"
+        app:layout_constraintStart_toStartOf="@+id/searchChosenText"
+        app:layout_constraintTop_toBottomOf="@+id/searchChosenText" />
 
 </android.support.constraint.ConstraintLayout>

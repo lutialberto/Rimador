@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.betom.rimador.R
+import com.example.betom.rimador.adapters.LetterRecycleAdapter
 import com.example.betom.rimador.adapters.WordRecycleAdapter
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
@@ -20,12 +21,20 @@ import kotlinx.android.synthetic.main.activity_search_rhyme.*
 class SearchRhymeActivity : AppCompatActivity() {
 
     private lateinit var wordRecyclerAdapter: WordRecycleAdapter
+    private lateinit var letterRecyclerAdapter: LetterRecycleAdapter
+
     private fun setupAdapters(){
         wordRecyclerAdapter= WordRecycleAdapter(this,WordService.words)
         wordsListView.adapter= this.wordRecyclerAdapter
 
         val layoutManager=LinearLayoutManager(this)
         wordsListView.layoutManager=layoutManager
+
+        letterRecyclerAdapter= LetterRecycleAdapter(this, charArrayOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z'))
+        letterListView.adapter= this.letterRecyclerAdapter
+
+        val layoutManager1=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        letterListView.layoutManager=layoutManager1
 
     }
 
