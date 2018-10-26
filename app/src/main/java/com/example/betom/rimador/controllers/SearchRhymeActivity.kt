@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter
 import com.example.betom.rimador.R
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
-import com.example.betom.rimador.word_handlers.InputWordCorrector
-import com.example.betom.rimador.word_handlers.StringCodifier
+import com.example.betom.rimador.wordHandlers.InputWordCorrector
+import com.example.betom.rimador.wordHandlers.StringCodifier
 import com.example.betom.rimador.utilities.URL_FIND_WORD_ASSONANT_RHYME
 import com.example.betom.rimador.utilities.URL_FIND_WORD_CONSONANT_RHYME
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT

@@ -8,7 +8,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.utilities.URL_WORDS
-import com.example.betom.rimador.word_handlers.StringCodifier
+import com.example.betom.rimador.wordHandlers.StringCodifier
 import org.json.JSONException
 import org.json.JSONObject
 

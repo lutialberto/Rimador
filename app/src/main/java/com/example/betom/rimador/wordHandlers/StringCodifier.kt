@@ -1,4 +1,4 @@
-package com.example.betom.rimador.word_handlers
+package com.example.betom.rimador.wordHandlers
 
 class StringCodifier {
 

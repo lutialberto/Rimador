@@ -1,6 +1,6 @@
 package com.example.betom.rimador.models
 
-import com.example.betom.rimador.word_handlers.WordSeparator
+import com.example.betom.rimador.wordHandlers.WordSeparator
 import com.example.betom.rimador.utilities.*
 
 class Word (str:String) {

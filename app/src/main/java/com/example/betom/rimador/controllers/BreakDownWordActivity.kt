@@ -7,7 +7,7 @@ import android.view.View
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
 import com.example.betom.rimador.models.Word
-import com.example.betom.rimador.word_handlers.InputWordCorrector
+import com.example.betom.rimador.wordHandlers.InputWordCorrector
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
 import kotlinx.android.synthetic.main.activity_break_down_word.*
 
