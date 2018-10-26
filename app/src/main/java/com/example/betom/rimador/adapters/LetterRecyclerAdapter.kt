@@ -20,13 +20,13 @@ class LetterRecycleAdapter(val context: Context, private val letterList: CharArr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view=LayoutInflater.from(parent.context)
-                .inflate(R.layout.word_list_item,parent,false) //acomodar este
+                .inflate(R.layout.letter_list_item,parent,false)
         return Holder(view)
     }
 
     //acomodar este
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val letterText= itemView.findViewById<TextView>(R.id.wordTextView)!! //acomodar este
+        private val letterText= itemView.findViewById<TextView>(R.id.letterText)!!
 
         fun bindWord(c:Char,context: Context){
             letterText.text=c.toString()

@@ -2,6 +2,7 @@ package com.example.betom.rimador.controllers
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -33,7 +34,7 @@ class SearchRhymeActivity : AppCompatActivity() {
         letterRecyclerAdapter= LetterRecycleAdapter(this, charArrayOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z'))
         letterListView.adapter= this.letterRecyclerAdapter
 
-        val layoutManager1=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        val layoutManager1=GridLayoutManager(this,14)
         letterListView.layoutManager=layoutManager1
 
     }
