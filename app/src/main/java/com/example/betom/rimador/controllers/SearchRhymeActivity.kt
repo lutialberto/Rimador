@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.betom.rimador.R
+import com.example.betom.rimador.adapters.WordAdapter
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
 import com.example.betom.rimador.wordHandlers.InputWordCorrector
@@ -18,10 +19,10 @@ import kotlinx.android.synthetic.main.activity_search_rhyme.*
 
 class SearchRhymeActivity : AppCompatActivity() {
 
-    private lateinit var wordAdapter: ArrayAdapter<Word>
+    private lateinit var wordAdapter: WordAdapter
 
     private fun setupAdapters(){
-        wordAdapter= ArrayAdapter(this,android.R.layout.simple_list_item_1,WordService.words)
+        wordAdapter= WordAdapter(this,WordService.words)
         wordsListView.adapter= this.wordAdapter
     }
 
