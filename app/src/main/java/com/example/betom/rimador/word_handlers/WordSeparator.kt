@@ -1,4 +1,4 @@
-package com.example.betom.rimador.services
+package com.example.betom.rimador.word_handlers
 
 import android.util.Log
 import com.example.betom.rimador.models.Word

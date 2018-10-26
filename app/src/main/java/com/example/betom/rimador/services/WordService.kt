@@ -7,8 +7,8 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.betom.rimador.models.Word
-import com.example.betom.rimador.utilities.URL_FIND_WORD_CONSONANT_RHYME
 import com.example.betom.rimador.utilities.URL_WORDS
+import com.example.betom.rimador.word_handlers.StringCodifier
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -19,14 +19,13 @@ object WordService {
     fun addWord(context:Context,word:Word,complete: (Boolean) -> Unit){
         val jsonBody=JSONObject()
 
-        jsonBody.put("chain",word.str)
+        jsonBody.put("chain",word.toString())
         jsonBody.put("assonantRhyme", word.intoString(true,word.getRhyme(false)))
         jsonBody.put("consonantRhyme", word.intoString(false,word.getRhyme(true)))
-        jsonBody.put("firstSyllable",word.syllables.first())
-        jsonBody.put("lastSyllable",word.syllables.last())
+        jsonBody.put("firstLetter",word.getFirstLetter())
         jsonBody.put("vocalSkeleton", word.intoString(true,word.getAssonatingStructure()))
 
-        val codifier=StringCodifier()
+        val codifier= StringCodifier()
         val requestBody=codifier.getDBText(jsonBody.toString())
 
         val registerRequest= object : StringRequest(Method.POST, URL_WORDS,Response.Listener {_ ->
@@ -51,7 +50,7 @@ object WordService {
                 null,Response.Listener {response ->
             try {
                 words.clear()
-                val codifier=StringCodifier()
+                val codifier= StringCodifier()
                 for (i in 0 until response.length()){
                     val word=response.getJSONObject(i)
                     val newWord=Word(codifier.getAppText(word.getString("chain")))

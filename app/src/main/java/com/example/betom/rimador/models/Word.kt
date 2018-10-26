@@ -1,6 +1,6 @@
 package com.example.betom.rimador.models
 
-import com.example.betom.rimador.services.WordSeparator
+import com.example.betom.rimador.word_handlers.WordSeparator
 import com.example.betom.rimador.utilities.*
 
 class Word (str:String) {
@@ -75,7 +75,7 @@ class Word (str:String) {
                 var vowels = syllable.vowels
 
                 /*arregla caso 2*/
-                if (vowels.length >= 2 && (syllable.syllabicPrefix.last() == 'q' || syllable.syllabicPrefix.last() == 'g'))
+                if (vowels.length >= 2 && syllable.syllabicPrefix.isNotEmpty() && (syllable.syllabicPrefix.last() == 'q' || syllable.syllabicPrefix.last() == 'g'))
                     vowels = when (vowels.subSequence(0, 2)) {
                         "ué", "uí", "ue", "ui" -> vowels.subSequence(1, vowels.length).toString()
                         else -> vowels
@@ -88,6 +88,18 @@ class Word (str:String) {
             }
         }
         return structure
+    }
+
+    fun getFirstLetter():String{
+        val l=toString().first().toString()
+        return when(l){
+                "á" -> "a"
+                "é" -> "e"
+                "í" -> "i"
+                "ó" -> "o"
+                "ú" -> "u"
+                else -> l
+        }
     }
 
     /*
@@ -192,11 +204,14 @@ class Word (str:String) {
     }
 
     fun intoString(separateElements:Boolean, elements:ArrayList<String>):String {
-        var s=""
-        val sep=if(separateElements) "-" else ""
-        for (e in elements){
-            s+=e+sep
-        }
-        return if(separateElements) s.substring(0,s.length-1) else s
+        if(!hasErrors()) {
+            var s = ""
+            val sep = if (separateElements) "-" else ""
+            for (e in elements) {
+                s += e + sep
+            }
+            return if (separateElements) s.substring(0, s.length - 1) else s
+        }else
+            return ""
     }
 }

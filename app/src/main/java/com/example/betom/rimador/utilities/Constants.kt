@@ -28,5 +28,6 @@ const val URL_WORDS= "${BASE_URL}words/"
 const val URL_FIND_WORD_ASSONANT_RHYME = "${URL_WORDS}assonantRhyme/"
 const val URL_FIND_WORD_CONSONANT_RHYME = "${URL_WORDS}consonantRhyme/"
 const val URL_FIND_WORD_VOCAL_SKELETON = "${URL_WORDS}vocalSkeleton/"
+const val URL_ADD_WORDS= "${BASE_URL}allWords"
 
 

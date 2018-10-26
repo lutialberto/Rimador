@@ -3,12 +3,11 @@ package com.example.betom.rimador.controllers
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.KeyEvent
 import android.view.View
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.SyllableRecyclerAdapter
 import com.example.betom.rimador.models.Word
-import com.example.betom.rimador.services.InputWordCorrector
+import com.example.betom.rimador.word_handlers.InputWordCorrector
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
 import kotlinx.android.synthetic.main.activity_break_down_word.*
 
@@ -21,14 +20,7 @@ class BreakDownWordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_break_down_word)
 
         setupSyllableAdapter()
-        setupOnKeyListener()
-    }
 
-    private fun setupOnKeyListener(){
-        enterWordText.setOnKeyListener(View.OnKeyListener {v,_, _ ->
-            separateSyllablesClicked(v)
-            return@OnKeyListener true
-        })
     }
 
     private fun setupSyllableAdapter(){
@@ -55,28 +47,28 @@ class BreakDownWordActivity : AppCompatActivity() {
 
     fun separateSyllablesClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
-        val wordCorrector=InputWordCorrector()
+        val wordCorrector= InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.intoSyllables(),getString(R.string.separada_en_silabas),inputWord.toString())
     }
 
     fun vocalStructureClicked(view: View) {
         val inputWord=Word(enterWordText.text.toString())
-        val wordCorrector=InputWordCorrector()
+        val wordCorrector= InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.getAssonatingStructure(),getString(R.string.estructura_vocal),inputWord.toString())
     }
 
     fun assonantRhymeButtonClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
-        val wordCorrector=InputWordCorrector()
+        val wordCorrector= InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.getRhyme(false),getString(R.string.rima_asonante),inputWord.toString())
     }
 
     fun consonantRhymeButtonClicked(view: View){
         val inputWord=Word(enterWordText.text.toString())
-        val wordCorrector=InputWordCorrector()
+        val wordCorrector= InputWordCorrector()
         if(wordCorrector.validateWord(this,inputWord))
             updateView(inputWord.getRhyme(true),getString(R.string.rima_consonante),inputWord.toString())
     }

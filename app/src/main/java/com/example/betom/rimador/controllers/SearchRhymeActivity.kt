@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter
 import com.example.betom.rimador.R
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
-import com.example.betom.rimador.services.InputWordCorrector
-import com.example.betom.rimador.services.StringCodifier
+import com.example.betom.rimador.word_handlers.InputWordCorrector
+import com.example.betom.rimador.word_handlers.StringCodifier
 import com.example.betom.rimador.utilities.URL_FIND_WORD_ASSONANT_RHYME
 import com.example.betom.rimador.utilities.URL_FIND_WORD_CONSONANT_RHYME
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
@@ -33,14 +33,16 @@ class SearchRhymeActivity : AppCompatActivity() {
         searchParameterText.text=""
         matchesCountText.text=""
         coincidenceText.text=""
+
     }
 
     fun searchAssonantRhymeClicked(view :View) {
+
         val inputWord=Word(newWordText.text.toString())
         val list=inputWord.getRhyme(false)
         val stringList=inputWord.intoString(true,list)
 
-        val codifier=StringCodifier()
+        val codifier= StringCodifier()
         val url="$URL_FIND_WORD_ASSONANT_RHYME${codifier.getDBText(stringList)}"
 
         val wordCorrector= InputWordCorrector()
@@ -65,7 +67,7 @@ class SearchRhymeActivity : AppCompatActivity() {
         val list=inputWord.getRhyme(true)
         val stringList=inputWord.intoString(false,list)
 
-        val codifier=StringCodifier()
+        val codifier= StringCodifier()
         val url="$URL_FIND_WORD_CONSONANT_RHYME${codifier.getDBText(stringList)}"
 
         val wordCorrector= InputWordCorrector()
