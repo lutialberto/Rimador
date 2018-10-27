@@ -23,6 +23,9 @@ import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 import kotlinx.android.synthetic.main.activity_search_rhyme.*
+import android.support.v7.widget.DividerItemDecoration
+import java.security.AccessController.getContext
+
 
 class SearchRhymeActivity : AppCompatActivity() {
 
@@ -52,6 +55,8 @@ class SearchRhymeActivity : AppCompatActivity() {
 
         fastScrollerView = findViewById(R.id.fastscroller)
         val recyclerView : RecyclerView = findViewById(R.id.wordsListView)
+        recyclerView.addItemDecoration(DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL))
         fastScrollerView.apply {
             fastScrollerView.setupWithRecyclerView(
                     recyclerView,

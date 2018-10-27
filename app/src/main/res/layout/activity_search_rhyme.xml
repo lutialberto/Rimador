@@ -57,10 +57,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toStartOf="@+id/fastscroller_thumb"
+        app:layout_constraintEnd_toEndOf="@+id/fastscroller_thumb"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/newWordText"
         app:layout_constraintTop_toBottomOf="@+id/searchChosenText"
@@ -68,12 +69,12 @@
 
     <com.reddit.indicatorfastscroll.FastScrollerView
         android:id="@+id/fastscroller"
-        android:layout_width="32dp"
+        android:layout_width="20dp"
         android:layout_height="0dp"
+        android:textAppearance="@style/scroolbarLetters"
         app:layout_constraintBottom_toBottomOf="@+id/wordsListView"
         app:layout_constraintEnd_toEndOf="@+id/coincidenceText"
-        app:layout_constraintTop_toTopOf="@+id/wordsListView"
-        android:textAppearance="@style/scroolbarLetters"/>
+        app:layout_constraintTop_toTopOf="@+id/wordsListView" />
 
     <com.reddit.indicatorfastscroll.FastScrollerThumbView
         android:id="@+id/fastscroller_thumb"

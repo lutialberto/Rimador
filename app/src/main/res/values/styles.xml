@@ -21,7 +21,7 @@
     </style>
 
     <style name="scroolbarLetters" >
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">8sp</item>
     </style>
 
 </resources>
