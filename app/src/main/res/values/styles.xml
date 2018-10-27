@@ -20,4 +20,8 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="scroolbarLetters" >
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>

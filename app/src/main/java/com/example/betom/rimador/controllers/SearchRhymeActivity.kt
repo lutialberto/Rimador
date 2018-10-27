@@ -1,43 +1,34 @@
 package com.example.betom.rimador.controllers
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.betom.rimador.R
-import com.example.betom.rimador.adapters.LetterRecycleAdapter
 import com.example.betom.rimador.adapters.WordRecycleAdapter
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
+import com.example.betom.rimador.utilities.BROADCAST_SEARCH_COMPLETED
 import com.example.betom.rimador.wordHandlers.InputWordCorrector
 import com.example.betom.rimador.wordHandlers.StringCodifier
 import com.example.betom.rimador.utilities.URL_FIND_WORD_ASSONANT_RHYME
 import com.example.betom.rimador.utilities.URL_FIND_WORD_CONSONANT_RHYME
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
+import com.reddit.indicatorfastscroll.FastScrollerThumbView
+import com.reddit.indicatorfastscroll.FastScrollerView
 import kotlinx.android.synthetic.main.activity_search_rhyme.*
 
 class SearchRhymeActivity : AppCompatActivity() {
 
     private lateinit var wordRecyclerAdapter: WordRecycleAdapter
-    private lateinit var letterRecyclerAdapter: LetterRecycleAdapter
-
-    private fun setupAdapters(){
-        wordRecyclerAdapter= WordRecycleAdapter(this,WordService.words)
-        wordsListView.adapter= this.wordRecyclerAdapter
-
-        val layoutManager=LinearLayoutManager(this)
-        wordsListView.layoutManager=layoutManager
-
-        letterRecyclerAdapter= LetterRecycleAdapter(this, charArrayOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z'))
-        letterListView.adapter= this.letterRecyclerAdapter
-
-        val layoutManager1=GridLayoutManager(this,14)
-        letterListView.layoutManager=layoutManager1
-
-    }
+    private lateinit var fastScrollerView: FastScrollerView
+    private lateinit var fastScrollerThumbView: FastScrollerThumbView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +41,47 @@ class SearchRhymeActivity : AppCompatActivity() {
         coincidenceText.text=""
 
         enableSpinner(false)
+    }
+
+    private fun setupAdapters(){
+        wordRecyclerAdapter= WordRecycleAdapter(this,WordService.words)
+        wordsListView.adapter= this.wordRecyclerAdapter
+
+        val layoutManager=LinearLayoutManager(this)
+        wordsListView.layoutManager=layoutManager
+
+        fastScrollerView = findViewById(R.id.fastscroller)
+        val recyclerView : RecyclerView = findViewById(R.id.wordsListView)
+        fastScrollerView.apply {
+            fastScrollerView.setupWithRecyclerView(
+                    recyclerView,
+                    { position ->
+                        val letter = WordService.words[position] // Get your model object
+                        // or fetch the section at [position] from your database
+                        FastScrollItemIndicator.Text(
+                                letter.toString().substring(0, 1).toUpperCase() // Grab the first letter and capitalize it
+                        ) // Return a text indicator
+                    }
+            )
+        }
+
+        fastScrollerView.useDefaultScroller = false
+        fastScrollerView.itemIndicatorSelectedCallbacks += object : FastScrollerView.ItemIndicatorSelectedCallback {
+            override fun onItemIndicatorSelected(
+                    indicator: FastScrollItemIndicator,
+                    indicatorCenterY: Int,
+                    itemPosition: Int
+            ) {
+                // Handle scrolling
+                recyclerView.stopScroll()
+                wordsListView.scrollToPosition(itemPosition)
+            }
+        }
+
+        fastScrollerThumbView = findViewById(R.id.fastscroller_thumb)
+        fastScrollerThumbView.apply {
+            setupWithFastScroller(fastScrollerView)
+        }
     }
 
     private fun enableSpinner(enable:Boolean){
@@ -80,8 +112,11 @@ class SearchRhymeActivity : AppCompatActivity() {
                     searchParameterText.text = stringList
                     matchesCountText.text = WordService.words.size.toString()
                     coincidenceText.text = getString(R.string.coincidence)
+
+                    val searchCompleted=Intent(BROADCAST_SEARCH_COMPLETED)
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(searchCompleted)
                 } else {
-                    Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Algo salio mal, proba de nuevo", Toast.LENGTH_SHORT).show()
                 }
                 enableSpinner(false)
             }
@@ -94,7 +129,7 @@ class SearchRhymeActivity : AppCompatActivity() {
     private fun scrollToFirstItem(c:Char){
 
         val firstItem=WordService.words.find { w ->
-            w.toString().first()=='b'
+            w.toString().first()==c
         }
         wordsListView.scrollToPosition(WordService.words.indexOf(firstItem))
     }

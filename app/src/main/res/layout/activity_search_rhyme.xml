@@ -59,15 +59,29 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
-        app:fastScrollEnabled="true"
-        app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
-        app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
-        app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="@+id/newWordText"
+        app:layout_constraintEnd_toStartOf="@+id/fastscroller_thumb"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/newWordText"
-        app:layout_constraintTop_toBottomOf="@+id/letterListView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchChosenText"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.reddit.indicatorfastscroll.FastScrollerView
+        android:id="@+id/fastscroller"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/wordsListView"
+        app:layout_constraintEnd_toEndOf="@+id/coincidenceText"
+        app:layout_constraintTop_toTopOf="@+id/wordsListView"
+        android:textAppearance="@style/scroolbarLetters"/>
+
+    <com.reddit.indicatorfastscroll.FastScrollerThumbView
+        android:id="@+id/fastscroller_thumb"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fastscroller"
+        app:layout_constraintEnd_toStartOf="@+id/fastscroller"
+        app:layout_constraintTop_toTopOf="@+id/fastscroller" />
 
     <TextView
         android:id="@+id/searchChosenText"
@@ -120,17 +134,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/letterListView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/coincidenceText"
-        app:layout_constraintStart_toStartOf="@+id/searchChosenText"
-        app:layout_constraintTop_toBottomOf="@+id/searchChosenText" />
 
 </android.support.constraint.ConstraintLayout>

@@ -15,6 +15,7 @@ import org.json.JSONObject
 object WordService {
 
     val words=ArrayList<Word>()
+    val letters=ArrayList<Char>()
 
     fun addWord(context:Context,word:Word,complete: (Boolean) -> Unit){
         val jsonBody=JSONObject()
@@ -50,11 +51,16 @@ object WordService {
                 null,Response.Listener {response ->
             try {
                 words.clear()
+                letters.clear()
                 val codifier= StringCodifier()
                 for (i in 0 until response.length()){
                     val word=response.getJSONObject(i)
                     val newWord=Word(codifier.getAppText(word.getString("chain")))
                     words.add(newWord)
+
+                    val firstLetter=newWord.getFirstLetter().first()
+                    if(!letters.contains(firstLetter))
+                        letters.add(firstLetter)
                 }
                 complete(true)
             } catch (e:JSONException) {
