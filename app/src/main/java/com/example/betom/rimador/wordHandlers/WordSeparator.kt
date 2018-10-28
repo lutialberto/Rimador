@@ -10,6 +10,9 @@ class WordSeparator {
     private lateinit var lastSyllable: Syllable
     private lateinit var word: Word
 
+    /*
+    * try to separate the word into syllables analizing letter by letter and its context
+    * */
     fun separateIntoSyllables (p:Word){
         acumulated=""
         lastSyllable=Syllable()
@@ -17,7 +20,7 @@ class WordSeparator {
         var state=0
 //        Log.d("SEP","str a separateIntoSyllables -> |${word.str}|")
 
-        val stateMatrix= changeStateMatrixInit()
+        val stateMatrix= stateChangeMatrixInit()
         val actionMatrix= actionMatrixInit()
 
         val cadena="${word.str.toLowerCase().trim()}$END_OF_WORD_DELIMITER"
@@ -37,6 +40,9 @@ class WordSeparator {
 //        Log.d("SEP","str separada -> |${word.intoSyllables()}|")
     }
 
+    /*
+    * determine to which group belongs
+    * */
     private fun findLetterSet(letter: Char): Int {
         return when(letter){
             'i','u','ü' -> 0  //vd: vocales debiles
@@ -53,7 +59,15 @@ class WordSeparator {
         }
     }
 
-    private fun changeStateMatrixInit(): Array<Int>{
+    /*
+    * setup the state change matrix
+    * in:
+    * each column represents a group of symbols with a common property
+    * each row represents a state of the state machine
+    * out:
+    * each cell contains the next state to go, given the actual state and the last symbol
+    * */
+    private fun stateChangeMatrixInit(): Array<Int>{
         return arrayOf(
             //  0   1   2   3   4   5   6   7   8  9 10
             // vd  vf  cig  d   c   l   r   h  cn fin err
@@ -74,6 +88,14 @@ class WordSeparator {
         )
     }
 
+    /*
+    * setup the action matrix
+    * in:
+    * each column represents a group of symbols with a common property
+    * each row represents a state of the state machine
+    * out:
+    * each cell contains the function to be executed, given the actual state and the last symbol
+    * */
     private fun actionMatrixInit(): Array<(Char) -> Unit> {
         return arrayOf(
                 //estado 0

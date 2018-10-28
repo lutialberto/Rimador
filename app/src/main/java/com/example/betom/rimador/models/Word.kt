@@ -1,15 +1,21 @@
 package com.example.betom.rimador.models
 
+import android.util.Log
 import com.example.betom.rimador.wordHandlers.WordSeparator
 import com.example.betom.rimador.utilities.*
 
 class Word (str:String) {
 
     val str: String = str.trim()
-    var syllables=ArrayList<Syllable>()
+    private var syllables=ArrayList<Syllable>()
     var errorMessage: String
     private var tonicSyllablePosition: Int
 
+    /*
+    * 1. set all the default values before analize the word
+    * 2. check input string size
+    * 3. valid size -> execute separate into syllables and THEN find the tonic syllable
+    * */
     init {
         errorMessage= NO_ERRORS
         tonicSyllablePosition=TONIC_SYLLABLE_DEFAULT_VALUE
@@ -22,10 +28,16 @@ class Word (str:String) {
             errorMessage= ERROR_WORD_SIZE_ABOVE_LIMIT
     }
 
+    /*
+    * 1. checks the input string size
+    * */
     private fun correctSize():Boolean{
         return str.length<= MAX_WORD_SIZE
     }
 
+    /*
+    * 1. add a new syllable to the end of the list
+    * */
     fun addSyllable(syllable: Syllable){
         syllables.add(syllable)
     }
@@ -50,6 +62,10 @@ class Word (str:String) {
         return separatedWord
     }
 
+    /*
+    * 1. NO_ERRORS is the default value when the object is created
+    * 2. when it is different means that the string input has issues and the class public functions shouldnt be used
+    * */
     fun hasErrors():Boolean{
         return errorMessage!= NO_ERRORS
     }
@@ -86,19 +102,30 @@ class Word (str:String) {
 
                 structure.add(vowels)
             }
+        } else {
+            Log.d("ERROR","This method works as expected only when the word has no errors. The word's error: $errorMessage")
         }
         return structure
     }
 
+    /*
+    * 1. get the first letter of the word
+    * 2. some special characters cannot be returned
+    * */
     fun getFirstLetter():String{
-        val l=toString().first().toString()
-        return when(l){
+        return if(!hasErrors()) {
+            val firstLetter = toString().first().toString()
+            when (firstLetter) {
                 "á" -> "a"
                 "é" -> "e"
                 "í" -> "i"
                 "ó" -> "o"
                 "ú" -> "u"
-                else -> l
+                else -> firstLetter
+            }
+        }else{
+            Log.d("ERROR","This method works as expected only when the word has no errors. The word's error: $errorMessage")
+            ""
         }
     }
 
@@ -203,15 +230,20 @@ class Word (str:String) {
         return syllables.size
     }
 
+    /*
+    * 1. transform a list into a string, with the option of using a delimiter between elements
+    * */
     fun intoString(separateElements:Boolean, elements:ArrayList<String>):String {
-        if(!hasErrors()) {
+        return if(!hasErrors()) {
             var s = ""
             val sep = if (separateElements) "-" else ""
             for (e in elements) {
                 s += e + sep
             }
-            return if (separateElements) s.substring(0, s.length - 1) else s
-        }else
-            return ""
+            if (separateElements) s.substring(0, s.length - 1) else s
+        }else {
+            Log.d("ERROR","This method works as expected only when the word has no errors. The word's error: $errorMessage")
+            ""
+        }
     }
 }

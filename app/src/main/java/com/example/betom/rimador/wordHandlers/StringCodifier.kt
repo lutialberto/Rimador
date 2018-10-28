@@ -2,6 +2,9 @@ package com.example.betom.rimador.wordHandlers
 
 class StringCodifier {
 
+    /*
+    * transform special charaters into new ones that can be imterpreted for the DB
+    * */
     fun getDBText(str:String):String{
         var aux=""
         str.forEach { element ->
@@ -18,6 +21,9 @@ class StringCodifier {
         return aux
     }
 
+    /*
+    * transform exclusive DB expressions into special character of the user's own language
+    * */
     fun getAppText(str:String):String{
         //  a\\baco
         var aux=""

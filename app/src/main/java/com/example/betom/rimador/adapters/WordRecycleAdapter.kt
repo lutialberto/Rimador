@@ -9,8 +9,7 @@ import android.widget.TextView
 import com.example.betom.rimador.R
 import com.example.betom.rimador.models.Word
 
-class WordRecycleAdapter(val context: Context, private val wordList:ArrayList<Word>) : RecyclerView.Adapter<WordRecycleAdapter.Holder>() {
-
+class WordRecycleAdapter(private val context: Context, private val wordList:ArrayList<Word>) : RecyclerView.Adapter<WordRecycleAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bindWord(wordList[position],context)
