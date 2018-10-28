@@ -9,11 +9,11 @@ class StringCodifier {
         var aux=""
         str.forEach { element ->
             aux+=when(element){
-                'á' -> "a\\\\"
-                'é' -> "e\\\\"
-                'í' -> "i\\\\"
-                'ó' -> "o\\\\"
-                'ú' -> "u\\\\"
+                'á' -> "a~"
+                'é' -> "e~"
+                'í' -> "i~"
+                'ó' -> "o~"
+                'ú' -> "u~"
                 'ñ' -> "n~"
                 else -> element
             }
@@ -25,11 +25,11 @@ class StringCodifier {
     * transform exclusive DB expressions into special character of the user's own language
     * */
     fun getAppText(str:String):String{
-        //  a\\baco
+        //  a~baco
         var aux=""
         if(str.length>=2) {
             for (i in 0 until str.length)
-                if (str[i] == '\\' || str[i] == '~') {
+                if (str[i] == '~') {
                     aux = aux.substring(0, aux.length - 1) +
                             when (str[i - 1]) {
                                 'a' -> 'á'
@@ -38,7 +38,6 @@ class StringCodifier {
                                 'o' -> 'ó'
                                 'u' -> 'ú'
                                 'n' -> 'ñ'
-                                '\\' -> aux.last()
                                 else -> str[i - 1]
                             }
                 } else {

@@ -122,17 +122,18 @@ class SearchRhymeActivity : AppCompatActivity() {
         val inputWord = Word(newWordText.text.toString())
         if (InputWordCorrector().validateWord(this, inputWord)) {
 
-            val list = inputWord.getRhyme(consonantRhyme)
-            val stringList = inputWord.intoString(!consonantRhyme, list)
+            val arrayListRhyme = inputWord.getRhyme(consonantRhyme)
+            val stringRhyme = inputWord.intoString(!consonantRhyme, arrayListRhyme)
+            val dbFormatRhyme=StringCodifier().getDBText(stringRhyme)
 
-            val url = "$rhymeUrl${StringCodifier().getDBText(stringList)}"
+            val url = "$rhymeUrl$dbFormatRhyme"
 
             WordService.findWords(this, url) { complete ->
                 if (complete) {
                     wordRecyclerAdapter.notifyDataSetChanged()
 
                     searchChosenText.text = resourceString
-                    searchParameterText.text = stringList
+                    searchParameterText.text = stringRhyme
                     matchesCountText.text = WordService.words.size.toString()
                     coincidenceText.text = getString(R.string.coincidence)
 
