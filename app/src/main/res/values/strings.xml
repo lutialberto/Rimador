@@ -100,4 +100,8 @@
     <string name="buscar_rima_asonante">Buscar rima asonante</string>
     <string name="coincidence"> coincidencias</string>
     <string name="e">E</string>
+    <string name="configuracion_avanzada">Configuracion avanzada</string>
+    <string name="cantidad_de_silabas">Cantidad de silabas</string>
+    <string name="sin_tilde">Sin tilde</string>
+    <string name="crear_palabras">Crear palabras</string>
 </resources>

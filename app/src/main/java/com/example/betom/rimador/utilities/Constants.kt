@@ -30,4 +30,8 @@ const val URL_FIND_WORD_CONSONANT_RHYME = "${URL_WORDS}consonantRhyme/"
 const val URL_FIND_WORD_VOCAL_SKELETON = "${URL_WORDS}vocalSkeleton/"
 const val URL_ADD_WORDS= "${BASE_URL}allWords"
 
+/*word creator*/
+const val NUMBER_OF_WORDS_TO_BE_CREATED=100
+const val DEFAULT_MIN_SYLLABLES=1
+const val DEFAULT_MAX_SYLLABLES=3
 
