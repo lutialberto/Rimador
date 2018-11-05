@@ -1,3 +1,6 @@
+package com.example.betom.rimador.wordHandlers
+
+import android.util.Log
 import com.example.betom.rimador.models.Syllable
 import com.example.betom.rimador.utilities.*
 import java.util.*
@@ -5,9 +8,13 @@ import java.util.*
 class WordCreator {
 
     private var maxSyllables:Int = DEFAULT_MAX_SYLLABLES+1
-    private var minSyllables:Int = DEFAULT_MIN_SYLLABLES
+    var minSyllables:Int = DEFAULT_MIN_SYLLABLES
     private val consonantGroups= setupConsonantGroups()
     private val vocalGroups= setupVocalGroups()
+
+    fun setMaxSyllables(n:Int){
+        maxSyllables=n+1
+    }
 
     /*
     * get a random integer number between 2 other numbers
@@ -35,7 +42,7 @@ class WordCreator {
             }
             words.add(intoString(syllables))
         }
-
+        Log.d("GENERATE","$words")
         return words
     }
 

@@ -6,4 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".controllers.CreateWordActivity">
 
+    <Button
+        android:id="@+id/generateWordsButton"
+        style="@style/rimadorButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/generar_palabras"
+        android:onClick="generateWordsButtonClicked"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/wordListAndScrollConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/generateWordsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxSyllablesText">
+
+        <com.reddit.indicatorfastscroll.FastScrollerView
+            android:id="@+id/generatedWordsFastscroller"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:textAppearance="@style/scroolbarLetters"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.reddit.indicatorfastscroll.FastScrollerThumbView
+            android:id="@+id/generatedWordsFastscroller_thumb"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/generatedWordsFastscroller"
+            app:layout_constraintEnd_toEndOf="@+id/generatedWordsListView"
+            app:layout_constraintTop_toTopOf="@+id/generatedWordsFastscroller" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/generatedWordsListView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/generatedWordsFastscroller"
+            app:layout_constraintEnd_toStartOf="@+id/generatedWordsFastscroller"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/generatedWordsFastscroller" />
+    </android.support.constraint.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/minSyllablesText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/m_nimo"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/maxSyllablesText"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/syllablesNumberLabel" />
+
+    <EditText
+        android:id="@+id/maxSyllablesText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/m_ximo"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/minSyllablesText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/minSyllablesText"
+        app:layout_constraintTop_toTopOf="@+id/minSyllablesText" />
+
+    <TextView
+        android:id="@+id/syllablesNumberLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/n_mero_de_silabas"
+        app:layout_constraintStart_toStartOf="@+id/minSyllablesText"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
