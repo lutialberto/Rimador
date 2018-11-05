@@ -100,4 +100,15 @@
     <string name="buscar_rima_asonante">Buscar rima asonante</string>
     <string name="coincidence"> coincidencias</string>
     <string name="e">E</string>
+    <string name="configuracion_avanzada">Configuracion avanzada</string>
+    <string name="cantidad_de_silabas">Cantidad de silabas</string>
+    <string name="sin_tilde">Sin tilde</string>
+    <string name="crear_palabras">Crear palabras</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="m_nimo">Mínimo</string>
+    <string name="m_ximo">Máximo</string>
+    <string name="n_mero_de_silabas">Número de silabas</string>
+    <string name="generar_palabras">Generar palabras</string>
 </resources>

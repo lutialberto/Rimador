@@ -53,7 +53,7 @@ class SearchRhymeActivity : AppCompatActivity() {
 
     private fun setupFastScroll(){
         //innitialize fast scroll and recycler
-        fastScrollerView = findViewById(R.id.fastscroller)
+        fastScrollerView = findViewById(R.id.wordsFastscroller)
         val recyclerView : RecyclerView = findViewById(R.id.wordsListView)
 
         //setup item divider for word recycler
@@ -89,7 +89,7 @@ class SearchRhymeActivity : AppCompatActivity() {
         }
 
         //setup thumb scroll as a complement the scroll view
-        fastScrollerThumbView = findViewById(R.id.fastscroller_thumb)
+        fastScrollerThumbView = findViewById(R.id.wordsFastscroller_thumb)
         fastScrollerThumbView.apply {
             setupWithFastScroller(fastScrollerView)
         }
