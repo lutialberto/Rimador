@@ -20,8 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/wordListAndScrollConstraint"
+    <include layout="@layout/scroll_list_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -32,35 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/maxSyllablesText">
-
-        <com.reddit.indicatorfastscroll.FastScrollerView
-            android:id="@+id/generatedWordsFastscroller"
-            android:layout_width="20dp"
-            android:layout_height="0dp"
-            android:textAppearance="@style/scroolbarLetters"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.reddit.indicatorfastscroll.FastScrollerThumbView
-            android:id="@+id/generatedWordsFastscroller_thumb"
-            android:layout_width="40dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/generatedWordsFastscroller"
-            app:layout_constraintEnd_toEndOf="@+id/generatedWordsListView"
-            app:layout_constraintTop_toTopOf="@+id/generatedWordsFastscroller" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/generatedWordsListView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/generatedWordsFastscroller"
-            app:layout_constraintEnd_toStartOf="@+id/generatedWordsFastscroller"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/generatedWordsFastscroller" />
-    </android.support.constraint.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/maxSyllablesText"/>
 
     <EditText
         android:id="@+id/minSyllablesText"

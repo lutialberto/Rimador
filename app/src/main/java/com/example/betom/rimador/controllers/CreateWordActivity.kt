@@ -17,6 +17,7 @@ import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 import kotlinx.android.synthetic.main.activity_create_word.*
+import kotlinx.android.synthetic.main.scroll_list_layout.*
 
 class CreateWordActivity : AppCompatActivity() {
 
@@ -61,17 +62,17 @@ class CreateWordActivity : AppCompatActivity() {
 
     private fun setupAdapters(){
         wordRecyclerAdapter= WordRecycleAdapter(this, WordService.words)
-        generatedWordsListView.adapter= this.wordRecyclerAdapter
+        wordsListView1.adapter= this.wordRecyclerAdapter
 
         val layoutManager= LinearLayoutManager(this)
-        generatedWordsListView.layoutManager=layoutManager
+        wordsListView1.layoutManager=layoutManager
 
     }
 
     private fun setupFastScroll(){
         //innitialize fast scroll and recycler
-        fastScrollerView = findViewById(R.id.generatedWordsFastscroller)
-        val recyclerView : RecyclerView = findViewById(R.id.generatedWordsListView)
+        fastScrollerView = findViewById(R.id.wordsFastscroller1)
+        val recyclerView : RecyclerView = findViewById(R.id.wordsListView1)
 
         //setup item divider for word recycler
         recyclerView.addItemDecoration(DividerItemDecoration(this,
@@ -101,12 +102,12 @@ class CreateWordActivity : AppCompatActivity() {
             ) {
                 // Handle scrolling
                 recyclerView.stopScroll()
-                generatedWordsListView.scrollToPosition(itemPosition)
+                wordsListView1.scrollToPosition(itemPosition)
             }
         }
 
         //setup thumb scroll as a complement the scroll view
-        fastScrollerThumbView = findViewById(R.id.generatedWordsFastscroller_thumb)
+        fastScrollerThumbView = findViewById(R.id.wordsFastscroller_thumb1)
         fastScrollerThumbView.apply {
             setupWithFastScroller(fastScrollerView)
         }

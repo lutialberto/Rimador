@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/wordsListView1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/wordsFastscroller1"
+        app:layout_constraintEnd_toStartOf="@+id/wordsFastscroller1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wordsFastscroller1" />
+
+    <com.reddit.indicatorfastscroll.FastScrollerThumbView
+        android:id="@+id/wordsFastscroller_thumb1"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/wordsFastscroller1"
+        app:layout_constraintEnd_toEndOf="@+id/wordsListView1"
+        app:layout_constraintTop_toTopOf="@+id/wordsFastscroller1" />
+
+    <com.reddit.indicatorfastscroll.FastScrollerView
+        android:id="@+id/wordsFastscroller1"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:textAppearance="@style/scroolbarLetters"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
