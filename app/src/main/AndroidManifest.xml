@@ -13,21 +13,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".controllers.BreakDownWordActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan">
+        </activity>
         <activity
             android:name=".controllers.SearchRhymeActivity"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".controllers.Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".controllers.CreateWordActivity"></activity>
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".controllers.CreateWordActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

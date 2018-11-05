@@ -104,4 +104,7 @@
     <string name="cantidad_de_silabas">Cantidad de silabas</string>
     <string name="sin_tilde">Sin tilde</string>
     <string name="crear_palabras">Crear palabras</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -31,7 +31,12 @@ const val URL_FIND_WORD_VOCAL_SKELETON = "${URL_WORDS}vocalSkeleton/"
 const val URL_ADD_WORDS= "${BASE_URL}allWords"
 
 /*word creator*/
+//const val NUMBER_OF_WORDS_TO_BE_CREATED=1
 const val NUMBER_OF_WORDS_TO_BE_CREATED=100
 const val DEFAULT_MIN_SYLLABLES=1
-const val DEFAULT_MAX_SYLLABLES=3
-
+const val DEFAULT_MAX_SYLLABLES=2
+const val PREFIX="prefix"
+const val SUFIX="sufix"
+const val NO_SOUND_GROUP=""
+const val SOFT_VOCALS="soft vocals"
+const val STRONG_VOCALS="strong vocals"
