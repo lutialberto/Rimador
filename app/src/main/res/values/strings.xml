@@ -118,4 +118,9 @@
     <string name="silaba_entera_por_letra_asesino_acsino"><![CDATA[silaba entera por letra: asesino -> acsino]]></string>
     <string name="expandir_uso_de_la_q_qs_qz">expandir uso de la Q: qs,qz</string>
     <string name="usar_palabras_mal_escritas">usar palabras mal escritas</string>
+    <string name="inventar_palabras">Inventar palabras</string>
+    <string name="buscador_de_rimas">Buscador de rimas</string>
+    <string name="creador_de_palabras">creador de palabras</string>
+    <string name="analizador_de_palabras">Analizador de palabras</string>
+    <string name="bienvenido">Bienvenido!</string>
 </resources>
