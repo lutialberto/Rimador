@@ -92,6 +92,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/orthographyLinearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -132,6 +133,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/silaba_entera_por_letra_asesino_acsino" />
+
+                <CheckBox
+                    android:id="@+id/wrongWordsCheckButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usar_palabras_mal_escritas" />
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
 
