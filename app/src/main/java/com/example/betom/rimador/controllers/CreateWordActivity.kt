@@ -1,5 +1,6 @@
 package com.example.betom.rimador.controllers
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -10,7 +11,6 @@ import android.widget.Toast
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.FastScroller
 import com.example.betom.rimador.models.Word
-import com.example.betom.rimador.services.WordService
 import com.example.betom.rimador.utilities.DEFAULT_MAX_SYLLABLES
 import com.example.betom.rimador.utilities.DEFAULT_MIN_SYLLABLES
 import com.example.betom.rimador.wordHandlers.WordCreator
@@ -24,6 +24,7 @@ class CreateWordActivity : AppCompatActivity() {
 
     private lateinit var fastScroller:FastScroller
     private val generatedWords=ArrayList<Word>()
+    private lateinit var textToSpeech: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +60,10 @@ class CreateWordActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var textToSpeech: TextToSpeech
+    fun advancedConfigurationButtonClicked(view: View){
+        val advancedConfigurationIntent=Intent(this,CreateWordAdvancedConfigurationActivity::class.java)
+        startActivity(advancedConfigurationIntent)
+    }
 
     private fun setupAdapters(){
         val wordRecycleAdapter=findViewById<RecyclerView>(R.id.wordsListView)
