@@ -2,36 +2,30 @@ package com.example.betom.rimador.controllers
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.betom.rimador.R
-import com.example.betom.rimador.adapters.WordRecycleAdapter
+import com.example.betom.rimador.adapters.FastScroller
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
+import com.example.betom.rimador.utilities.DEFAULT_MAX_SYLLABLES
+import com.example.betom.rimador.utilities.DEFAULT_MIN_SYLLABLES
 import com.example.betom.rimador.wordHandlers.WordCreator
-import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 import kotlinx.android.synthetic.main.activity_create_word.*
-import kotlinx.android.synthetic.main.scroll_list_layout.*
 
 class CreateWordActivity : AppCompatActivity() {
 
-    private lateinit var wordRecyclerAdapter: WordRecycleAdapter
-    private lateinit var fastScrollerView: FastScrollerView
-    private lateinit var fastScrollerThumbView: FastScrollerThumbView
+    private lateinit var fastScroller:FastScroller
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_word)
 
         setupAdapters()
-        setupFastScroll()
-
     }
 
     fun generateWordsButtonClicked(view: View){
@@ -39,78 +33,31 @@ class CreateWordActivity : AppCompatActivity() {
         val minimum=if(minSyllablesText.text.isNotEmpty())
             minSyllablesText.text.toString().toInt()
         else
-            0
+            DEFAULT_MIN_SYLLABLES
+
         val maximum=if(maxSyllablesText.text.isNotEmpty())
             maxSyllablesText.text.toString().toInt()
         else
-            0
-        if(minimum.toString().toInt()>0 && maximum >= minimum){
+            DEFAULT_MAX_SYLLABLES
+
+        if(minimum.toString().toInt()>= DEFAULT_MIN_SYLLABLES && maximum >= minimum && maximum<= DEFAULT_MAX_SYLLABLES){
             wordCreator.minSyllables=minimum
             wordCreator.setMaxSyllables(maximum)
         }else{
-            Log.d("ERROR","both min and max values have to be bigger than zero and max bigger or equal to min")
-            Toast.makeText(this,"valores erroneos, pone otros",Toast.LENGTH_SHORT).show()
+            Log.d("ERROR","both min and max values have to be between $DEFAULT_MIN_SYLLABLES and $DEFAULT_MAX_SYLLABLES")
+            Toast.makeText(this,"Pone valores entre $DEFAULT_MIN_SYLLABLES y $DEFAULT_MAX_SYLLABLES",Toast.LENGTH_SHORT).show()
         }
-
-        Log.d("GENERATE","minimum -> |$minimum|, maximum -> |$maximum|")
         WordService.words.clear()
         WordService.words.addAll(wordCreator.getWords().map { Word(it) } as ArrayList<Word>)
         WordService.words.sortBy { it.toString() }
 
-        wordRecyclerAdapter.notifyDataSetChanged()
+        fastScroller.wordRecyclerAdapter.notifyDataSetChanged()
     }
 
     private fun setupAdapters(){
-        wordRecyclerAdapter= WordRecycleAdapter(this, WordService.words)
-        wordsListView1.adapter= this.wordRecyclerAdapter
-
-        val layoutManager= LinearLayoutManager(this)
-        wordsListView1.layoutManager=layoutManager
-
+        val wordRecycleAdapter=findViewById<RecyclerView>(R.id.wordsListView)
+        val fastScrollerView=findViewById<FastScrollerView>(R.id.wordsFastscroller)
+        val fastScrollerThumbView=findViewById<FastScrollerThumbView>(R.id.wordsFastscroller_thumb)
+        fastScroller=FastScroller(this,wordRecycleAdapter,fastScrollerView,fastScrollerThumbView)
     }
-
-    private fun setupFastScroll(){
-        //innitialize fast scroll and recycler
-        fastScrollerView = findViewById(R.id.wordsFastscroller1)
-        val recyclerView : RecyclerView = findViewById(R.id.wordsListView1)
-
-        //setup item divider for word recycler
-        recyclerView.addItemDecoration(DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL))
-
-        //
-        fastScrollerView.apply {
-            fastScrollerView.setupWithRecyclerView(
-                    recyclerView,
-                    { position ->
-                        val letter = WordService.words[position] // Get your model object
-                        // or fetch the section at [position] from your database
-                        FastScrollItemIndicator.Text(
-                                letter.toString().substring(0, 1).toUpperCase() // Grab the first letter and capitalize it
-                        ) // Return a text indicator
-                    }
-            )
-        }
-
-        //change the conventional way to scroll for a jump to x position of the recycler
-        fastScrollerView.useDefaultScroller = false
-        fastScrollerView.itemIndicatorSelectedCallbacks += object : FastScrollerView.ItemIndicatorSelectedCallback {
-            override fun onItemIndicatorSelected(
-                    indicator: FastScrollItemIndicator,
-                    indicatorCenterY: Int,
-                    itemPosition: Int
-            ) {
-                // Handle scrolling
-                recyclerView.stopScroll()
-                wordsListView1.scrollToPosition(itemPosition)
-            }
-        }
-
-        //setup thumb scroll as a complement the scroll view
-        fastScrollerThumbView = findViewById(R.id.wordsFastscroller_thumb1)
-        fastScrollerThumbView.apply {
-            setupWithFastScroller(fastScrollerView)
-        }
-    }
-
 }

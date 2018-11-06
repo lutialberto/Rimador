@@ -7,7 +7,7 @@
     tools:context=".controllers.SearchRhymeActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/searchButtonsLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -36,6 +36,20 @@
             android:text="@string/buscar_rima_consonante" />
     </LinearLayout>
 
+    <include
+        android:id="@+id/matchingWordsScrollView"
+        layout="@layout/scroll_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchButtonsLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchChosenText" />
+
     <EditText
         android:id="@+id/newWordText"
         android:layout_width="0dp"
@@ -53,38 +67,6 @@
         tools:ignore="Autofill"
         android:imeOptions="actionDone"
         android:maxLines="1"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/wordsListView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="@+id/wordsFastscroller_thumb"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/newWordText"
-        app:layout_constraintTop_toBottomOf="@+id/searchChosenText"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.reddit.indicatorfastscroll.FastScrollerView
-        android:id="@+id/wordsFastscroller"
-        android:layout_width="20dp"
-        android:layout_height="0dp"
-        android:textAppearance="@style/scroolbarLetters"
-        app:layout_constraintBottom_toBottomOf="@+id/wordsListView"
-        app:layout_constraintEnd_toEndOf="@+id/coincidenceText"
-        app:layout_constraintTop_toTopOf="@+id/wordsListView" />
-
-    <com.reddit.indicatorfastscroll.FastScrollerThumbView
-        android:id="@+id/wordsFastscroller_thumb"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/wordsFastscroller"
-        app:layout_constraintEnd_toStartOf="@+id/wordsFastscroller"
-        app:layout_constraintTop_toTopOf="@+id/wordsFastscroller" />
 
     <TextView
         android:id="@+id/searchChosenText"

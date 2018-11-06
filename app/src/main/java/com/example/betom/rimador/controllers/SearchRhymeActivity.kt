@@ -2,13 +2,11 @@ package com.example.betom.rimador.controllers
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.betom.rimador.R
-import com.example.betom.rimador.adapters.WordRecycleAdapter
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
 import com.example.betom.rimador.wordHandlers.InputWordCorrector
@@ -16,24 +14,20 @@ import com.example.betom.rimador.wordHandlers.StringCodifier
 import com.example.betom.rimador.utilities.URL_FIND_WORD_ASSONANT_RHYME
 import com.example.betom.rimador.utilities.URL_FIND_WORD_CONSONANT_RHYME
 import com.example.betom.rimador.utilities.WAITING_FOR_INPUT
-import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 import kotlinx.android.synthetic.main.activity_search_rhyme.*
-import android.support.v7.widget.DividerItemDecoration
+import com.example.betom.rimador.adapters.FastScroller
 
 class SearchRhymeActivity : AppCompatActivity() {
 
-    private lateinit var wordRecyclerAdapter: WordRecycleAdapter
-    private lateinit var fastScrollerView: FastScrollerView
-    private lateinit var fastScrollerThumbView: FastScrollerThumbView
+    private lateinit var fastScroller : FastScroller
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_rhyme)
 
         setupAdapters()
-        setupFastScroll()
 
         searchChosenText.text= WAITING_FOR_INPUT
         searchParameterText.text=""
@@ -44,55 +38,10 @@ class SearchRhymeActivity : AppCompatActivity() {
     }
 
     private fun setupAdapters(){
-        wordRecyclerAdapter= WordRecycleAdapter(this,WordService.words)
-        wordsListView.adapter= this.wordRecyclerAdapter
-
-        val layoutManager=LinearLayoutManager(this)
-        wordsListView.layoutManager=layoutManager
-    }
-
-    private fun setupFastScroll(){
-        //innitialize fast scroll and recycler
-        fastScrollerView = findViewById(R.id.wordsFastscroller)
-        val recyclerView : RecyclerView = findViewById(R.id.wordsListView)
-
-        //setup item divider for word recycler
-        recyclerView.addItemDecoration(DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL))
-
-        //
-        fastScrollerView.apply {
-            fastScrollerView.setupWithRecyclerView(
-                    recyclerView,
-                    { position ->
-                        val letter = WordService.words[position] // Get your model object
-                        // or fetch the section at [position] from your database
-                        FastScrollItemIndicator.Text(
-                                letter.toString().substring(0, 1).toUpperCase() // Grab the first letter and capitalize it
-                        ) // Return a text indicator
-                    }
-            )
-        }
-
-        //change the conventional way to scroll for a jump to x position of the recycler
-        fastScrollerView.useDefaultScroller = false
-        fastScrollerView.itemIndicatorSelectedCallbacks += object : FastScrollerView.ItemIndicatorSelectedCallback {
-            override fun onItemIndicatorSelected(
-                    indicator: FastScrollItemIndicator,
-                    indicatorCenterY: Int,
-                    itemPosition: Int
-            ) {
-                // Handle scrolling
-                recyclerView.stopScroll()
-                wordsListView.scrollToPosition(itemPosition)
-            }
-        }
-
-        //setup thumb scroll as a complement the scroll view
-        fastScrollerThumbView = findViewById(R.id.wordsFastscroller_thumb)
-        fastScrollerThumbView.apply {
-            setupWithFastScroller(fastScrollerView)
-        }
+        val wordRecycleAdapter=findViewById<RecyclerView>(R.id.wordsListView)
+        val fastScrollerView=findViewById<FastScrollerView>(R.id.wordsFastscroller)
+        val fastScrollerThumbView=findViewById<FastScrollerThumbView>(R.id.wordsFastscroller_thumb)
+        fastScroller=FastScroller(this,wordRecycleAdapter,fastScrollerView,fastScrollerThumbView)
     }
 
     /*
@@ -130,7 +79,7 @@ class SearchRhymeActivity : AppCompatActivity() {
 
             WordService.findWords(this, url) { complete ->
                 if (complete) {
-                    wordRecyclerAdapter.notifyDataSetChanged()
+                    fastScroller.wordRecyclerAdapter.notifyDataSetChanged()
 
                     searchChosenText.text = resourceString
                     searchParameterText.text = stringRhyme
