@@ -18,10 +18,12 @@ import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 import kotlinx.android.synthetic.main.activity_create_word.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CreateWordActivity : AppCompatActivity() {
 
     private lateinit var fastScroller:FastScroller
+    private val generatedWords=ArrayList<Word>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +48,9 @@ class CreateWordActivity : AppCompatActivity() {
             wordCreator.minSyllables=minimum
             wordCreator.setMaxSyllables(maximum)
 
-            WordService.words.clear()
-            WordService.words.addAll(wordCreator.getWords().map { Word(it) } as ArrayList<Word>)
-            WordService.words.sortBy { it.toString() }
+            generatedWords.clear()
+            generatedWords.addAll(wordCreator.getWords().map { Word(it) } as ArrayList<Word>)
+            generatedWords.sortBy { it.toString() }
 
             fastScroller.wordRecyclerAdapter.notifyDataSetChanged()
         }else{
@@ -70,7 +72,7 @@ class CreateWordActivity : AppCompatActivity() {
                 Log.d("ERROR","There is a problem with the textToSpeech feature")
             }
         })
-        fastScroller=FastScroller(this,wordRecycleAdapter,fastScrollerView,fastScrollerThumbView){word ->
+        fastScroller=FastScroller(this,wordRecycleAdapter,generatedWords,fastScrollerView,fastScrollerThumbView){ word ->
             textToSpeech.speak(word.toString(),TextToSpeech.QUEUE_FLUSH,null)
         }
     }
