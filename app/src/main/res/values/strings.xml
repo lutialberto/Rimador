@@ -111,4 +111,11 @@
     <string name="m_ximo">Máximo</string>
     <string name="n_mero_de_silabas">Número de silabas</string>
     <string name="generar_palabras">Generar palabras</string>
+    <string name="ortografia">Ortografia</string>
+    <string name="usar_w_como_u">Usar W como U</string>
+    <string name="usar_y_como_i">Usar Y como I</string>
+    <string name="agregar_ph_sh_ck_como_f_ll_k">agregar ph,sh,ck como F,LL,K,</string>
+    <string name="silaba_entera_por_letra_asesino_acsino"><![CDATA[silaba entera por letra: asesino -> acsino]]></string>
+    <string name="expandir_uso_de_la_q_qs_qz">expandir uso de la Q: qs,qz</string>
+    <string name="usar_palabas_mal_escritas">usar palabas mal escritas</string>
 </resources>

@@ -20,7 +20,6 @@ class BreakDownWordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_break_down_word)
 
         setupSyllableAdapter()
-
     }
 
     private fun setupSyllableAdapter(){

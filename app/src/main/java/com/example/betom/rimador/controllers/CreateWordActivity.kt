@@ -43,15 +43,16 @@ class CreateWordActivity : AppCompatActivity() {
         if(minimum.toString().toInt()>= DEFAULT_MIN_SYLLABLES && maximum >= minimum && maximum<= DEFAULT_MAX_SYLLABLES){
             wordCreator.minSyllables=minimum
             wordCreator.setMaxSyllables(maximum)
+
+            WordService.words.clear()
+            WordService.words.addAll(wordCreator.getWords().map { Word(it) } as ArrayList<Word>)
+            WordService.words.sortBy { it.toString() }
+
+            fastScroller.wordRecyclerAdapter.notifyDataSetChanged()
         }else{
             Log.d("ERROR","both min and max values have to be between $DEFAULT_MIN_SYLLABLES and $DEFAULT_MAX_SYLLABLES")
             Toast.makeText(this,"Pone valores entre $DEFAULT_MIN_SYLLABLES y $DEFAULT_MAX_SYLLABLES",Toast.LENGTH_SHORT).show()
         }
-        WordService.words.clear()
-        WordService.words.addAll(wordCreator.getWords().map { Word(it) } as ArrayList<Word>)
-        WordService.words.sortBy { it.toString() }
-
-        fastScroller.wordRecyclerAdapter.notifyDataSetChanged()
     }
 
     private fun setupAdapters(){
