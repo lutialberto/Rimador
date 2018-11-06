@@ -2,6 +2,7 @@ package com.example.betom.rimador.controllers
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.betom.rimador.wordHandlers.WordCreator
 import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 import kotlinx.android.synthetic.main.activity_create_word.*
+import java.util.*
 
 class CreateWordActivity : AppCompatActivity() {
 
@@ -55,10 +57,21 @@ class CreateWordActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var textToSpeech: TextToSpeech
+
     private fun setupAdapters(){
         val wordRecycleAdapter=findViewById<RecyclerView>(R.id.wordsListView)
         val fastScrollerView=findViewById<FastScrollerView>(R.id.wordsFastscroller)
         val fastScrollerThumbView=findViewById<FastScrollerThumbView>(R.id.wordsFastscroller_thumb)
-        fastScroller=FastScroller(this,wordRecycleAdapter,fastScrollerView,fastScrollerThumbView)
+        textToSpeech=TextToSpeech(this,TextToSpeech.OnInitListener { status ->
+            if(status!=TextToSpeech.ERROR){
+                textToSpeech.language = Locale.getDefault()
+            }else{
+                Log.d("ERROR","There is a problem with the textToSpeech feature")
+            }
+        })
+        fastScroller=FastScroller(this,wordRecycleAdapter,fastScrollerView,fastScrollerThumbView){word ->
+            textToSpeech.speak(word.toString(),TextToSpeech.QUEUE_FLUSH,null)
+        }
     }
 }

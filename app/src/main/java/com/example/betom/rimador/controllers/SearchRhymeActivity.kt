@@ -41,7 +41,9 @@ class SearchRhymeActivity : AppCompatActivity() {
         val wordRecycleAdapter=findViewById<RecyclerView>(R.id.wordsListView)
         val fastScrollerView=findViewById<FastScrollerView>(R.id.wordsFastscroller)
         val fastScrollerThumbView=findViewById<FastScrollerThumbView>(R.id.wordsFastscroller_thumb)
-        fastScroller=FastScroller(this,wordRecycleAdapter,fastScrollerView,fastScrollerThumbView)
+        fastScroller=FastScroller(this,wordRecycleAdapter,fastScrollerView,fastScrollerThumbView){
+            //HACE ALGO CUANDO LO CLICKEAS??
+        }
     }
 
     /*

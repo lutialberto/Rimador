@@ -4,12 +4,13 @@ import android.content.Context
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.services.WordService
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 
-class FastScroller(context:Context,wordRecyclerView:RecyclerView,fastScrollerView:FastScrollerView,fastScrollerThumbView: FastScrollerThumbView) {
+class FastScroller(context:Context, wordRecyclerView:RecyclerView, fastScrollerView:FastScrollerView, fastScrollerThumbView: FastScrollerThumbView, private val itemClick:(Word)->Unit) {
     lateinit var wordRecyclerAdapter: WordRecycleAdapter
 
     init {
@@ -18,7 +19,7 @@ class FastScroller(context:Context,wordRecyclerView:RecyclerView,fastScrollerVie
     }
 
     private fun setupAdapters(wordRecyclerView: RecyclerView,context: Context){
-        wordRecyclerAdapter= WordRecycleAdapter(context, WordService.words)
+        wordRecyclerAdapter= WordRecycleAdapter(context, WordService.words,itemClick)
         wordRecyclerView.adapter= this.wordRecyclerAdapter
 
         val layoutManager= LinearLayoutManager(context)
