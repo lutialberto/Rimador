@@ -42,26 +42,7 @@ class WordCreator {
             }
             words.add(intoString(syllables))
         }
-        Log.d("GENERATE","$words")
-        return words
-    }
-
-    /*
-    * get a random group name from the given hashmap that matches the condition
-    * */
-    private fun getRandomGroupNameFrom(hashmap: Map<String,ArrayList<String>>, condition: (String) -> Boolean):String{
-        val filteredGroupNames=hashmap.keys.filter { name -> condition(name)}
-        val groupChosenPosition=(0..filteredGroupNames.size).random()
-        return filteredGroupNames[groupChosenPosition]
-    }
-
-    /*
-    * get a random member from a group of the given hashmap that matches the condition
-    * */
-    private fun getRandomMemberFrom(hashmap: Map<String, ArrayList<String>>, groupName:String, condition: (String,String) -> Boolean):String{
-        val groupMembers=hashmap.getValue(groupName).filter{ member -> condition(member,groupName) }
-        val chosenGroupMemberPosition=(0..groupMembers.size).random()
-        return groupMembers[chosenGroupMemberPosition]
+        return words.distinct() as ArrayList<String>
     }
 
     /*
@@ -132,6 +113,24 @@ class WordCreator {
         syllable.syllabicPrefix=consonantPrefixGroupChosenMember
         syllable.syllabicSufix=consonantSufixGroupChosenMember
         return syllable
+    }
+
+    /*
+    * get a random group name from the given hashmap that matches the condition
+    * */
+    private fun getRandomGroupNameFrom(hashmap: Map<String,ArrayList<String>>, condition: (String) -> Boolean):String{
+        val filteredGroupNames=hashmap.keys.filter { name -> condition(name)}
+        val groupChosenPosition=(0..filteredGroupNames.size).random()
+        return filteredGroupNames[groupChosenPosition]
+    }
+
+    /*
+    * get a random member from a group of the given hashmap that matches the condition
+    * */
+    private fun getRandomMemberFrom(hashmap: Map<String, ArrayList<String>>, groupName:String, condition: (String,String) -> Boolean):String{
+        val groupMembers=hashmap.getValue(groupName).filter{ member -> condition(member,groupName) }
+        val chosenGroupMemberPosition=(0..groupMembers.size).random()
+        return groupMembers[chosenGroupMemberPosition]
     }
 
     private fun finishWithSoftVocal(lastSyllable: Syllable): Boolean {
