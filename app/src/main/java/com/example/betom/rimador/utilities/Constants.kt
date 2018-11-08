@@ -39,3 +39,7 @@ const val SUFIX="sufix"
 const val NO_SOUND_GROUP=""
 const val SOFT_VOCALS="soft vocals"
 const val STRONG_VOCALS="strong vocals"
+
+/**/
+const val EXTRA_DATA=""
+const val EXTRA_ADAPTER=""

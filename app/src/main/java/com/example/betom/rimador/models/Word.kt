@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.betom.rimador.wordHandlers.WordSeparator
 import com.example.betom.rimador.utilities.*
 
-class Word (str:String) {
+open class Word (str:String) {
 
     val str: String = str.trim()
     private var syllables=ArrayList<Syllable>()

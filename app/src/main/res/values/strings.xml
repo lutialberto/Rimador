@@ -123,4 +123,5 @@
     <string name="creador_de_palabras">creador de palabras</string>
     <string name="analizador_de_palabras">Analizador de palabras</string>
     <string name="bienvenido">Bienvenido!</string>
+    <string name="eliminar_letras">Eliminar letras</string>
 </resources>

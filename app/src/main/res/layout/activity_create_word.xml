@@ -87,16 +87,6 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="443dp" />
 
-        <Button
-            android:id="@+id/advancedConfigurationButton"
-            style="@style/rimadorButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="advancedConfigurationButtonClicked"
-            android:text="@string/configuracion_avanzada"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

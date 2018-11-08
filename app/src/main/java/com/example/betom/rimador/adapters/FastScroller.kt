@@ -11,7 +11,7 @@ import com.reddit.indicatorfastscroll.FastScrollerThumbView
 import com.reddit.indicatorfastscroll.FastScrollerView
 
 class FastScroller(context:Context, wordRecyclerView:RecyclerView, val data:ArrayList<Word>,fastScrollerView:FastScrollerView, fastScrollerThumbView: FastScrollerThumbView, private val itemClick:(Word)->Unit) {
-    lateinit var wordRecyclerAdapter: WordRecycleAdapter
+    lateinit var wordRecyclerAdapter: RecyclerView.Adapter<*>
 
     init {
         setupAdapters(wordRecyclerView,context)

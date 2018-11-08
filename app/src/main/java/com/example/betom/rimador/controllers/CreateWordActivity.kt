@@ -1,6 +1,5 @@
 package com.example.betom.rimador.controllers
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -10,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.betom.rimador.R
 import com.example.betom.rimador.adapters.FastScroller
+import com.example.betom.rimador.models.CreatedWord
 import com.example.betom.rimador.models.Word
 import com.example.betom.rimador.utilities.DEFAULT_MAX_SYLLABLES
 import com.example.betom.rimador.utilities.DEFAULT_MIN_SYLLABLES
@@ -23,7 +23,7 @@ import kotlin.collections.ArrayList
 class CreateWordActivity : AppCompatActivity() {
 
     private lateinit var fastScroller:FastScroller
-    private val generatedWords=ArrayList<Word>()
+    private val generatedWords=ArrayList<CreatedWord>()
     private lateinit var textToSpeech: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,24 +45,24 @@ class CreateWordActivity : AppCompatActivity() {
         else
             DEFAULT_MAX_SYLLABLES
 
-        if(minimum.toString().toInt()>= DEFAULT_MIN_SYLLABLES && maximum >= minimum && maximum<= DEFAULT_MAX_SYLLABLES){
-            wordCreator.minSyllables=minimum
-            wordCreator.setMaxSyllables(maximum)
+        if(minimum>= DEFAULT_MIN_SYLLABLES && maximum<= DEFAULT_MAX_SYLLABLES){
+            if(maximum >= minimum) {
+                wordCreator.minSyllables = minimum
+                wordCreator.setMaxSyllables(maximum)
 
-            generatedWords.clear()
-            generatedWords.addAll(wordCreator.getWords().map { Word(it) } as ArrayList<Word>)
-            generatedWords.sortBy { it.toString() }
+                generatedWords.clear()
+                generatedWords.addAll(wordCreator.getWords())
+                generatedWords.sortBy { it.toString() }
 
-            fastScroller.wordRecyclerAdapter.notifyDataSetChanged()
+                fastScroller.wordRecyclerAdapter.notifyDataSetChanged()
+            }else{
+                Log.d("ERROR","minChosenValue cannot be bigger than maxChosenValue. min and max values are $minimum and $maximum")
+                Toast.makeText(this,"El minimo nro de silabas no puede ser mayor al maximo nro de silabas",Toast.LENGTH_SHORT).show()
+            }
         }else{
             Log.d("ERROR","both min and max values have to be between $DEFAULT_MIN_SYLLABLES and $DEFAULT_MAX_SYLLABLES")
             Toast.makeText(this,"Pone valores entre $DEFAULT_MIN_SYLLABLES y $DEFAULT_MAX_SYLLABLES",Toast.LENGTH_SHORT).show()
         }
-    }
-
-    fun advancedConfigurationButtonClicked(view: View){
-        val advancedConfigurationIntent=Intent(this,CreateWordAdvancedConfigurationActivity::class.java)
-        startActivity(advancedConfigurationIntent)
     }
 
     private fun setupAdapters(){
@@ -76,8 +76,10 @@ class CreateWordActivity : AppCompatActivity() {
                 Log.d("ERROR","There is a problem with the textToSpeech feature")
             }
         })
-        fastScroller=FastScroller(this,wordRecycleAdapter,generatedWords,fastScrollerView,fastScrollerThumbView){ word ->
-            textToSpeech.speak(word.toString(),TextToSpeech.QUEUE_FLUSH,null)
+        fastScroller=FastScroller(this,wordRecycleAdapter,generatedWords as ArrayList<Word>,fastScrollerView,fastScrollerThumbView){ word ->
+            val pronunciation=(word as CreatedWord).getPronunciation()
+            textToSpeech.speak(pronunciation,TextToSpeech.QUEUE_FLUSH,null)
+            Log.d("PRONOUNCE",pronunciation)
         }
     }
 }
